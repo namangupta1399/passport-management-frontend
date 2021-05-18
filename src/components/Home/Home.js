@@ -7,7 +7,7 @@ class Home extends Component {
   render() {
     return (
       <BossContainer>
-        HOME
+        <h1 style={{textAlign: 'center'}}>Welcome to PassportPalace</h1>
       </BossContainer>
     );
   }
