@@ -13,17 +13,18 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import BossContainer from "../BossContainer";
 import { Link } from "react-router-dom";
-import { signup } from "../../redux/user/userActions";
-import { connect } from "react-redux";
 import User from "../../Models/User";
+import { signUp } from "../../services/User";
+import { CircularProgress } from "@material-ui/core";
 
 class SignUp extends Component {
-
   initialState = {
     email: "",
     password: "",
     role: "applicant",
     loading: false,
+    error: undefined,
+    success: undefined
   };
 
   state = { ...this.initialState };
@@ -32,24 +33,31 @@ class SignUp extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(this.state);
+    // console.log(this.state);
 
     const user = new User(
       this.state.email,
       this.state.password,
       this.state.role
     );
-
-    this.props.signUp(user);
-    
-
-    this.setState({ ...this.initialState });
+    this.setState({ loading: true });
+    setTimeout(() => {
+      signUp(user)
+        .then((res) => {
+          console.log("RES:", res);
+          this.setState({ ...this.initialState, success: "User register successfully!" });
+        })
+        .catch((err) => {
+          console.log("ERR", err);
+          this.setState({ success: "", error: err.message, loading: false });
+        });
+    }, 2000);
   };
 
   render() {
-    const { email, password } = this.state;
+    const { email, password, role, loading } = this.state;
     // console.log(this.props);
     return (
       <BossContainer component="main" maxWidth="xs">
@@ -99,7 +107,11 @@ class SignUp extends Component {
               className=""
               size="large"
             >
-              Sign Up
+              {loading ? (
+                <CircularProgress style={{ color: "#fff" }} />
+              ) : (
+                "Sign Up"
+              )}
             </Button>
             <Grid container justify="flex-end">
               <Grid item>
@@ -109,22 +121,12 @@ class SignUp extends Component {
               </Grid>
             </Grid>
           </form>
+          <p>{this.state.success}</p>
+          <p>{this.state.error}</p>
         </div>
       </BossContainer>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    signUpForm: { ...state },
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    signUp: (user) => dispatch(signup(user)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
+export default SignUp;
