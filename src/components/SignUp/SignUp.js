@@ -14,10 +14,14 @@ import Container from "@material-ui/core/Container";
 import BossContainer from "../BossContainer";
 import { Link } from "react-router-dom";
 import User from "../../Models/User";
-import { signUp } from "../../services/User";
+import { signUp } from "../../services/ApplicantService";
 import { CircularProgress } from "@material-ui/core";
+import ApplicantService from "../../services/ApplicantService"
 
 class SignUp extends Component {
+
+  appService = new ApplicantService();
+
   initialState = {
     email: "",
     password: "",
@@ -44,7 +48,7 @@ class SignUp extends Component {
     );
     this.setState({ loading: true });
     setTimeout(() => {
-      signUp(user)
+      this.appService.signUp(user)
         .then((res) => {
           console.log("RES:", res);
           this.setState({ ...this.initialState, success: "User register successfully!" });
