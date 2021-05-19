@@ -8,7 +8,6 @@ import {
   Toolbar,
   Typography,
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,6 +50,9 @@ function Navbar() {
             </Button>
             <Button className={classes.btn} href="/contact" color="inherit">
               Contact Us
+            </Button>
+            <Button className={classes.btn} href="/sitemap" color="inherit">
+              Sitemap
             </Button>
           </Container>
         </Toolbar>

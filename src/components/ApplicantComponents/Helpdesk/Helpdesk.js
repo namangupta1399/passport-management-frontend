@@ -33,10 +33,23 @@ class Helpdesk extends Component {
       });
   }
 
+  renderTable = () => {
+    if (this.state.queries.length > 0) {
+      return this.state.queries.map((query, index) => (
+        <TableRow key={index}>
+          <TableCell>{index + 1}</TableCell>
+          <TableCell>{query.query}</TableCell>
+          <TableCell>{query.createdOn}</TableCell>
+        </TableRow>
+      ));
+    }
+    return <TableRow><TableCell colSpan="3" align="center"><h4>No records found!</h4></TableCell></TableRow>;
+  };
+
   render() {
     return (
       <BossContainer>
-        <h1 style={{textAlign: 'center'}}>Helpdesk Queries</h1>
+        <h1 style={{ textAlign: "center" }}>Helpdesk Queries</h1>
         <TableContainer component={Paper}>
           <Table aria-label="simple table">
             <TableHead>
@@ -47,15 +60,7 @@ class Helpdesk extends Component {
                 {/* <TableCell></TableCell> */}
               </TableRow>
             </TableHead>
-            <TableBody>
-              {this.state.queries.map((query, index) => (
-                <TableRow key={index}>
-                  <TableCell>{index + 1}</TableCell>
-                  <TableCell>{query.query}</TableCell>
-                  <TableCell>{query.createdOn}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
+            <TableBody>{this.renderTable()}</TableBody>
           </Table>
         </TableContainer>
       </BossContainer>

@@ -10,20 +10,63 @@ import Helpdesk from "./components/ApplicantComponents/Helpdesk";
 import Applicant from "./components/Applicant";
 import Admin from "./components/Admin";
 import PassportApplication from "./components/PassportApplication";
+import Sitemap from "./components/Sitemap";
+
+export const routesList = [
+  {
+    path: "/",
+    component: Home,
+  },
+  {
+    path: "/about",
+    component: About,
+  },
+  {
+    path: "/login",
+    component: SignIn,
+  },
+  {
+    path: "/register",
+    component: SignUp,
+  },
+  {
+    path: "/applicant",
+    component: Applicant,
+  },
+  {
+    path: "/applicant/helpdesk",
+    component: Helpdesk,
+  },
+  {
+    path: "/passportApplication",
+    component: PassportApplication,
+  },
+  {
+    path: "/admin",
+    component: Admin,
+  },
+  {
+    path: "/sitemap",
+    component: Sitemap
+  },
+  {
+    path: "/*",
+    component: PageNotFound,
+  },
+];
 
 const Routes = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/about" component={About} />
-        <Route exact path="/login" component={SignIn} />
-        <Route exact path="/register" component={SignUp} />
-        <Route exact path="/applicant" component={Applicant} />
-        <Route exact path="/applicant/helpdesk" component={Helpdesk} />
-        <Route exact path="/passportapplication" component={PassportApplication} />
-        <Route exact path="/admin" component={Admin} />
-        <Route component={PageNotFound} />
+        {routesList.map((route, index) => (
+          <Route
+            key={index}
+            exact
+            path={route.path}
+            component={route.component}
+          />
+        ))}
       </Switch>
     </BrowserRouter>
   );

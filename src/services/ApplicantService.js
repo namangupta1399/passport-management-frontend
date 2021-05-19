@@ -50,7 +50,7 @@ class ApplicantService {
   // New passport application
   createPassportApplication = (application) => {
     return axios
-      .post(`${BASE_URL}/application/new`, application)
+      .post(`${BASE_URL}/applicant/application/new`, application)
       .then((res) => res.data)
       .catch((err) => {
         throw new Error(err.response.data.message);

@@ -3,22 +3,40 @@ import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
+import { withStyles } from "@material-ui/core/styles";
 import BossContainer from "../BossContainer";
 import { Link } from "react-router-dom";
 import User from "../../Models/User";
-import { signUp } from "../../services/ApplicantService";
 import { CircularProgress } from "@material-ui/core";
-import ApplicantService from "../../services/ApplicantService"
+import ApplicantService from "../../services/ApplicantService";
+import Alert from '@material-ui/lab/Alert';
+
+
+const styles = (theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing(3),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+});
 
 class SignUp extends Component {
+  classes = this.props.classes;
 
   appService = new ApplicantService();
 
@@ -28,7 +46,7 @@ class SignUp extends Component {
     role: "applicant",
     loading: false,
     error: undefined,
-    success: undefined
+    success: undefined,
   };
 
   state = { ...this.initialState };
@@ -48,32 +66,53 @@ class SignUp extends Component {
     );
     this.setState({ loading: true });
     setTimeout(() => {
-      this.appService.signUp(user)
+      this.appService
+        .signUp(user)
         .then((res) => {
           console.log("RES:", res);
-          this.setState({ ...this.initialState, success: "User register successfully!" });
+          this.setState({
+            ...this.initialState,
+            success: "User register successfully!",
+          });
         })
         .catch((err) => {
           console.log("ERR", err);
-          this.setState({ success: "", error: err.message, loading: false });
+          const error = err.message.substring(
+            err.message.indexOf("=") + 1,
+            err.message.indexOf("]")
+          );
+          this.setState({ success: "", error: error, loading: false });
         });
     }, 2000);
   };
 
   render() {
-    const { email, password, role, loading } = this.state;
-    // console.log(this.props);
+    const { email, password, loading } = this.state;
     return (
       <BossContainer component="main" maxWidth="xs">
         <CssBaseline />
-        <div className="">
-          <Avatar className="">
+        <p>
+        {this.state.success ? (
+              <Alert severity="success">{this.state.success}</Alert>
+            ) : null}
+        </p>
+          <p>
+            {this.state.error ? (
+              <Alert severity="error">{this.state.error}</Alert>
+            ) : null}
+          </p>
+        <div className={this.classes.paper}>
+          <Avatar className={this.classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <form className="" noValidate onSubmit={this.handleSubmit}>
+          <form
+            className={this.classes.form}
+            noValidate
+            onSubmit={this.handleSubmit}
+          >
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -108,7 +147,7 @@ class SignUp extends Component {
               fullWidth
               variant="contained"
               color="primary"
-              className=""
+              className={this.classes.submit}
               size="large"
             >
               {loading ? (
@@ -125,12 +164,10 @@ class SignUp extends Component {
               </Grid>
             </Grid>
           </form>
-          <p>{this.state.success}</p>
-          <p>{this.state.error}</p>
         </div>
       </BossContainer>
     );
   }
 }
 
-export default SignUp;
+export default withStyles(styles)(SignUp);
