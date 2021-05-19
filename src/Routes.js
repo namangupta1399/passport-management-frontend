@@ -9,6 +9,7 @@ import SignUp from "./components/SignUp";
 import Helpdesk from "./components/ApplicantComponents/Helpdesk";
 import Applicant from "./components/Applicant";
 import Admin from "./components/Admin";
+import PassportApplication from "./components/PassportApplication";
 
 const Routes = () => {
   return (
@@ -20,6 +21,7 @@ const Routes = () => {
         <Route exact path="/register" component={SignUp} />
         <Route exact path="/applicant" component={Applicant} />
         <Route exact path="/applicant/helpdesk" component={Helpdesk} />
+        <Route exact path="/passportapplication" component={PassportApplication} />
         <Route exact path="/admin" component={Admin} />
         <Route component={PageNotFound} />
       </Switch>
