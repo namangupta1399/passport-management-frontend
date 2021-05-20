@@ -19,28 +19,21 @@ import React from "react";
 import { UncontrolledCarousel, Row, Col } from "reactstrap";
 import BossContainer from "../BossContainer";
 import { Container,Grid, Button, Typography,Card, CardActions, CardContent, CardMedia, CardActionArea} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import Footer from '../FooterNew';
 
 const items = [
   {
-    src: "https://cdn.dnaindia.com/sites/default/files/styles/full/public/2021/02/04/955331-passports.jpg",
-    altText: "Slide 1",
-    caption: "",
+    src: "https://images.unsplash.com/photo-1579158950237-a1d86ef408c4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1400&q=80",
     header: "",
     key: "1",
   },
   {
-    src: "https://static.toiimg.com/thumb/msid-80668438,width-748,height-499,resizemode=4,imgsize-102818/.jpg",
-    altText: "Slide 2",
-    caption: "",
+    src: "https://images.unsplash.com/photo-1579158950237-a1d86ef408c4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1400&q=80",
     header: "",
     key: "2",
   },
   {
-    src: "https://data.whicdn.com/images/294293655/original.jpg",
-    altText: "Slide 3",
-    caption: "",
+    src: "https://images.unsplash.com/photo-1579158950237-a1d86ef408c4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1400&q=80",
     header: "",
     key: "3",
   },
