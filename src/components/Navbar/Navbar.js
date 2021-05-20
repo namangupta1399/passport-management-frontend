@@ -1,5 +1,5 @@
 import React from "react";
-
+import Logo from './Logo.jpg';
 import {
   AppBar,
   Button,
@@ -14,6 +14,10 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
+  header: {
+    backgroundColor: "#000000",
+    color: "white",
+  },
   title: {
     flexGrow: 1,
   },
@@ -27,11 +31,12 @@ function Navbar() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="static" className={classes.header}>
         <Toolbar>
+        <img src={Logo} alt="Logo" className={classes.logo} />
           <Container style={{display: 'flex'}}>
             <Typography variant="h6" className={classes.title}>
-              PassportPalace
+              {/* House of Passports */}
             </Typography>
             <Button className={classes.btn} to="/" component={Link} color="inherit">
               Home
