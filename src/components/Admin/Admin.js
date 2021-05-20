@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import Link from '@material-ui/core/Link';
+// import Link from '@material-ui/core/Link';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
@@ -21,6 +21,7 @@ import HelpIcon from '@material-ui/icons/Help';
 import BossContainer from '../BossContainer';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import NoteIcon from '@material-ui/icons/Note';
+import { Link } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -180,7 +181,7 @@ export default function Admin() {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small" color="primary" >
+                    <Button component={Link} to="/admin/applications" size="small" color="primary" >
                       View all applications
                     </Button>
                   </CardActions>

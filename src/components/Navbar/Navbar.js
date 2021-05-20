@@ -8,6 +8,7 @@ import {
   Toolbar,
   Typography,
 } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,26 +33,27 @@ function Navbar() {
             <Typography variant="h6" className={classes.title}>
               PassportPalace
             </Typography>
-            <Button className={classes.btn} href="/" color="inherit">
+            <Button className={classes.btn} to="/" component={Link} color="inherit">
               Home
             </Button>
-            <Button className={classes.btn} href="/about" color="inherit">
+            <Button className={classes.btn} to="/about" component={Link} color="inherit">
               About Us
             </Button>
-            <Button className={classes.btn} href="/login" variant="contained">
+            <Button className={classes.btn} to="/login" component={Link} variant="contained">
               Login
             </Button>
             <Button
               className={classes.btn}
-              href="/register"
+              component={Link}
+              to="/register"
               variant="contained"
             >
               REGISTER
             </Button>
-            <Button className={classes.btn} href="/contact" color="inherit">
+            <Button className={classes.btn} to="/contact" component={Link} color="inherit">
               Contact Us
             </Button>
-            <Button className={classes.btn} href="/sitemap" color="inherit">
+            <Button className={classes.btn} to="/sitemap" component={Link} color="inherit">
               Sitemap
             </Button>
           </Container>

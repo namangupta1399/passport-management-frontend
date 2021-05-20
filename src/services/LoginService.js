@@ -7,11 +7,22 @@ class LoginService {
     return axios
       .post(`${BASE_URL}/user/login`, user)
       .then((res) => {
+        localStorage.setItem("user", JSON.stringify(res.data));
         return res.data;
       })
       .catch((err) => {
         throw new Error(err.response.data.message);
       });
+  };
+
+  // Check if logged in
+  isLoggedIn = () => {
+    return localStorage.getItem("user") !== null;
+  };
+
+  // Get current user
+  getCurrentUser = () => {
+    return JSON.parse(localStorage.getItem("user"));
   };
 }
 

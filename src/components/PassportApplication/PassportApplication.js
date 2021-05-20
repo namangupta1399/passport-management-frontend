@@ -102,7 +102,7 @@ class PassportApplication extends Component {
       pan: "",
     },
     user: {
-      id: 29,
+      id: 79,
     },
     applicationStatus: false,
     loading: false,

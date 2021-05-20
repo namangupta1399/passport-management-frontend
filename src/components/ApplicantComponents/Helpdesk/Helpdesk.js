@@ -10,6 +10,8 @@ import {
   TableRow,
 } from "@material-ui/core";
 import ApplicantService from "../../../services/ApplicantService";
+import CheckCircleOutlineRoundedIcon from "@material-ui/icons/CheckCircleOutlineRounded";
+import CancelRoundedIcon from "@material-ui/icons/CancelRounded";
 
 class Helpdesk extends Component {
   constructor(props) {
@@ -39,7 +41,15 @@ class Helpdesk extends Component {
         <TableRow key={index}>
           <TableCell>{index + 1}</TableCell>
           <TableCell>{query.query}</TableCell>
+          <TableCell>{query.solution}</TableCell>
           <TableCell>{query.createdOn}</TableCell>
+          <TableCell align="center">
+            {query.isResolved ? (
+              <CheckCircleOutlineRoundedIcon style={{ color: "#0f0" }} />
+            ) : (
+              <CancelRoundedIcon color="error" />
+            )}
+          </TableCell>
         </TableRow>
       ));
     }
@@ -56,8 +66,9 @@ class Helpdesk extends Component {
               <TableRow>
                 <TableCell>S.no.</TableCell>
                 <TableCell>Query</TableCell>
+                <TableCell>Solution</TableCell>
                 <TableCell>Raised on</TableCell>
-                {/* <TableCell></TableCell> */}
+                <TableCell>isResolved</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>{this.renderTable()}</TableBody>

@@ -11,13 +11,9 @@ import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import BossContainer from "../BossContainer";
 import { Link } from "react-router-dom";
-import {
-  FormControl,
-  FormLabel,
-  Radio,
-  RadioGroup,
-} from "@material-ui/core";
+import { FormControl, FormLabel, Radio, RadioGroup } from "@material-ui/core";
 import LoginService from "../../services/LoginService";
+import User from "../../Models/User";
 
 const styles = (theme) => ({
   paper: {
@@ -47,8 +43,6 @@ class SignIn extends Component {
     password: "",
     userRole: "",
     loading: false,
-    error: undefined,
-    success: undefined,
   };
 
   state = { ...this.initialState };
@@ -61,35 +55,35 @@ class SignIn extends Component {
     e.preventDefault();
     console.log(this.state);
 
-    // const user = new User(
-    //   this.state.email,
-    //   this.state.password,
-    //   this.state.role
-    // // );
-    // this.setState({ loading: true });
-    // setTimeout(() => {
-    //   this.appService
-    //     .signUp(user)
-    //     .then((res) => {
-    //       console.log("RES:", res);
-    //       this.setState({
-    //         ...this.initialState,
-    //         success: "User register successfully!",
-    //       });
-    //     })
-    //     .catch((err) => {
-    //       console.log("ERR", err);
-    //       const error = err.message.substring(
-    //         err.message.indexOf("=") + 1,
-    //         err.message.indexOf("]")
-    //       );
-    //       this.setState({ success: "", error: error, loading: false });
-    //     });
-    // }, 2000);
+    const user = new User(
+      this.state.email,
+      this.state.password,
+      this.state.userRole
+    );
+    this.setState({ loading: true });
+    setTimeout(() => {
+      this.loginService
+        .signIn(user)
+        .then((res) => {
+          console.log("RES:", res);
+          this.setState({
+            ...this.initialState,
+          });
+        })
+        .catch((err) => {
+          const error = err.message.substring(
+            err.message.indexOf("=") + 1,
+            err.message.indexOf("]")
+          );
+          console.log("ERR", error);
+          this.setState({ loading: false });
+        });
+    }, 2000);
   };
 
   render() {
     let classes = this.props.classes;
+    const { email, password, userRole } = this.state;
     return (
       <BossContainer component="main" maxWidth="xs">
         <CssBaseline />
@@ -100,12 +94,9 @@ class SignIn extends Component {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <form
-            className={classes.form}
-            noValidate
-            onSubmit={this.handleSubmit}
-          >
+          <form className={classes.form} onSubmit={this.handleSubmit}>
             <TextField
+              type="email"
               variant="outlined"
               margin="normal"
               required
@@ -115,6 +106,7 @@ class SignIn extends Component {
               name="email"
               autoComplete="email"
               autoFocus
+              value={email}
               onChange={this.handleChange}
             />
             <TextField
@@ -128,6 +120,7 @@ class SignIn extends Component {
               id="password"
               autoComplete="current-password"
               onChange={this.handleChange}
+              value={password}
             />
             <Grid container spacing={3}>
               <Grid item xs={6}>
@@ -138,15 +131,16 @@ class SignIn extends Component {
                     name="userRole"
                     style={{ flexDirection: "row" }}
                     onChange={this.handleChange}
+                    value={userRole}
                   >
                     <FormControlLabel
                       value="applicant"
-                      control={<Radio />}
+                      control={<Radio required />}
                       label="Applicant"
                     />
                     <FormControlLabel
                       value="admin"
-                      control={<Radio />}
+                      control={<Radio required />}
                       label="Admin"
                     />
                   </RadioGroup>
@@ -178,7 +172,7 @@ class SignIn extends Component {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link to="/" variant="body2">
                   Forgot password?
                 </Link>
               </Grid>

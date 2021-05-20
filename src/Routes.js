@@ -6,11 +6,14 @@ import PageNotFound from "./components/PageNotFound";
 import About from "./components/About";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
-import Helpdesk from "./components/ApplicantComponents/Helpdesk";
+import { default as ApplicantHelpdesk } from "./components/ApplicantComponents/Helpdesk";
+import { default as AdminHelpdesk } from "./components/AdminComponents/Helpdesk";
 import Applicant from "./components/Applicant";
 import Admin from "./components/Admin";
 import PassportApplication from "./components/PassportApplication";
 import Sitemap from "./components/Sitemap";
+import { default as AdminApplications } from "./components/AdminComponents/PassportApplication";
+import PassportApplicationSingle from "./components/AdminComponents/PassportApplication/PassportApplicationSingle";
 
 export const routesList = [
   {
@@ -35,7 +38,7 @@ export const routesList = [
   },
   {
     path: "/applicant/helpdesk",
-    component: Helpdesk,
+    component: ApplicantHelpdesk,
   },
   {
     path: "/passportApplication",
@@ -46,8 +49,20 @@ export const routesList = [
     component: Admin,
   },
   {
+    path: "/admin/applications",
+    component: AdminApplications,
+  },
+  {
+    path: "/admin/applications/:appId",
+    component: PassportApplicationSingle,
+  },
+  {
+    path: "/admin/helpdesk",
+    component: AdminHelpdesk,
+  },
+  {
     path: "/sitemap",
-    component: Sitemap
+    component: Sitemap,
   },
   {
     path: "/*",
