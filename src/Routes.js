@@ -8,6 +8,8 @@ import About from "./components/About";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import PassportApplication from "./components/PassportApplication";
+import Applicant from "./components/Applicant";
+import Admin from "./components/Admin";
 
 const Routes = () => {
   return (
@@ -18,6 +20,8 @@ const Routes = () => {
         <Route exact path="/login" component={SignIn} />
         <Route exact path="/register" component={SignUp} />
         <Route exact path="/passportapplication" component={PassportApplication} />
+        <Route exact path="/applicant" component={Applicant} />
+        <Route exact path="/admin" component={Admin} />
         <Route component={PageNotFound} />
        
       </Switch>
