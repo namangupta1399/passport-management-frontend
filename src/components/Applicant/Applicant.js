@@ -23,6 +23,7 @@ import FileCopyIcon from '@material-ui/icons/FileCopy';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import HelpIcon from '@material-ui/icons/Help';
+import Footer from '../FooterNew';
 
 const drawerWidth = 240;
 
@@ -155,6 +156,7 @@ export default function Applicant() {
         </List>
       </Drawer>
 
+
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justify="center">
               <Grid item>
@@ -271,7 +273,9 @@ export default function Applicant() {
         </Container>
       </main>
       {/* Footer */}
+      
       <footer className={classes.footer}>
+      <Footer />
         <Typography variant="h6" align="center" gutterBottom>
           Developer Contact
         </Typography>
@@ -279,6 +283,7 @@ export default function Applicant() {
           Site maintained by Capgemini
         </Typography>
         <Copyright />
+        
       </footer>
       {/* End footer */}
       </BossContainer>
