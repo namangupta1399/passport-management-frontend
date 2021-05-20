@@ -7,9 +7,9 @@ function BossContainer(props) {
   return (
     <>
       <Navbar />
-      <Container>
+      {/* <Container> */}
           {props.children}
-      </Container>
+      {/* </Container> */}
       {/* <Footer /> */}
     </>
   );

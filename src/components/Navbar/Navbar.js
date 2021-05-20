@@ -9,13 +9,14 @@ import {
   Typography,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import backgroundImage from '../../assets/images/header.webp';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
   header: {
-    backgroundColor: "#000000",
+    background: "#000000",
     color: "white",
   },
   title: {
@@ -33,10 +34,10 @@ function Navbar() {
     <div className={classes.root}>
       <AppBar position="static" className={classes.header}>
         <Toolbar>
-        <img src={Logo} alt="Logo" className={classes.logo} />
+        {/* <img src={Logo} alt="Logo" className={classes.logo} /> */}
           <Container style={{display: 'flex'}}>
             <Typography variant="h6" className={classes.title}>
-              {/* House of Passports */}
+              House of Passports
             </Typography>
             <Button className={classes.btn} to="/" component={Link} color="inherit">
               Home
