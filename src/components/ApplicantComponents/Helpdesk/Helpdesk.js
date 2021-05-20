@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import BossContainer from "../../BossContainer";
 import {
+  Button,
   Paper,
   Table,
   TableBody,
@@ -12,6 +13,7 @@ import {
 import ApplicantService from "../../../services/ApplicantService";
 import CheckCircleOutlineRoundedIcon from "@material-ui/icons/CheckCircleOutlineRounded";
 import CancelRoundedIcon from "@material-ui/icons/CancelRounded";
+import { Link } from "react-router-dom";
 
 class Helpdesk extends Component {
   constructor(props) {
@@ -53,7 +55,13 @@ class Helpdesk extends Component {
         </TableRow>
       ));
     }
-    return <TableRow><TableCell colSpan="3" align="center"><h4>No records found!</h4></TableCell></TableRow>;
+    return (
+      <TableRow>
+        <TableCell colSpan="3" align="center">
+          <h4>No records found!</h4>
+        </TableCell>
+      </TableRow>
+    );
   };
 
   render() {
@@ -74,6 +82,18 @@ class Helpdesk extends Component {
             <TableBody>{this.renderTable()}</TableBody>
           </Table>
         </TableContainer>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            marginTop: "1rem",
+          }}
+        >
+          <Button component={Link} to="/applicant/helpdesk/new" variant="contained" color="primary">
+            HAVE A QUERY ?
+          </Button>
+        </div>
       </BossContainer>
     );
   }

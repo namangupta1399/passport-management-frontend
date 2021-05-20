@@ -2,6 +2,56 @@ import axios from "axios";
 import BASE_URL from "../backend";
 
 class AdminService {
+  // New usr
+  createUser = (user) => {
+    return axios
+      .post(`${BASE_URL}/admin/user/new`, user)
+      .then((res) => res.data)
+      .catch((err) => {
+        throw new Error(err.response.data.message);
+      });
+  };
+
+  // Get all user
+  getAllUsers = () => {
+    return axios
+      .get(`${BASE_URL}/admin/users`)
+      .then((res) => res.data)
+      .catch((err) => {
+        throw new Error(err.response.data.message);
+      });
+  };
+
+  // Get user by id
+  getUser = (userId) => {
+    return axios
+      .get(`${BASE_URL}/admin/user/${userId}`)
+      .then((res) => res.data)
+      .catch((err) => {
+        throw new Error(err.response.data.message);
+      });
+  };
+
+  // Update user
+  updateUser = (user) => {
+    return axios
+      .put(`${BASE_URL}/admin/user/update`, user)
+      .then((res) => res.data)
+      .catch((err) => {
+        throw new Error(err.response.data.message);
+      });
+  };
+
+  // Delete applicant
+  deleteUser = (userId) => {
+    return axios
+      .delete(`${BASE_URL}/admin/user/delete/${userId}`)
+      .then((res) => res.data)
+      .catch((err) => {
+        throw new Error(err.response.data.message);
+      });
+  };
+
   // Get all passport applications
   getAllPassportApplications = () => {
     return axios
@@ -24,7 +74,7 @@ class AdminService {
 
   // Update document status
   updateDocumentStatus = (docStatus) => {
-    console.log(docStatus)
+    console.log(docStatus);
     return axios
       .put(`${BASE_URL}/admin/application/document/status/update`, docStatus)
       .then((res) => res.data)
@@ -39,7 +89,7 @@ class AdminService {
       .get(`${BASE_URL}/admin/helpdesk/all`)
       .then((res) => res.data)
       .catch((err) => {
-        // throw new Error(err.response.data.message);
+        throw new Error(err.response.data.message);
       });
   };
 

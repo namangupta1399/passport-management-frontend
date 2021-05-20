@@ -21,9 +21,13 @@ import BossContainer from "../../BossContainer";
 import CheckCircleOutlineRoundedIcon from "@material-ui/icons/CheckCircleOutlineRounded";
 import CancelRoundedIcon from "@material-ui/icons/CancelRounded";
 import DocumentStatus from "../../../Models/DocumentStatus";
+import { Redirect } from "react-router";
+import LoginService from "../../../services/LoginService";
+import ApplicantService from "../../../services/ApplicantService";
 
-class PassportApplicationSingle extends Component {
-  service = new AdminService();
+class PassportApplication extends Component {
+  applicantService = new ApplicantService();
+  loginservice = new LoginService();
 
   state = {
     application: {
@@ -58,10 +62,10 @@ class PassportApplicationSingle extends Component {
   };
 
   componentDidMount() {
-    const appId = this.props.match.params.appId;
+    const userId = this.loginservice.getCurrentUser().id;
 
-    this.service
-      .getPassportApplication(appId)
+    this.applicantService
+      .getPassportApplicationByUser(userId)
       .then((res) => {
         console.log(res);
         this.setState({ application: res });
@@ -102,7 +106,7 @@ class PassportApplicationSingle extends Component {
     });
   };
 
-  render() {
+  renderApplication = () => {
     const {
       firstName,
       middleName,
@@ -258,18 +262,13 @@ class PassportApplicationSingle extends Component {
                               <TableCell>{document.documentName}</TableCell>
                               <TableCell>{document.documentValue}</TableCell>
                               <TableCell>
-                                <Checkbox
-                                  checked={document.isVerified}
-                                  onChange={(e) =>
-                                    this.handleSwitch(
-                                      document.documentId,
-                                      e.target.checked
-                                    )
-                                  }
-                                  inputProps={{
-                                    "aria-label": "primary checkbox",
-                                  }}
-                                />
+                                {document.isResolved ? (
+                                  <CheckCircleOutlineRoundedIcon
+                                    style={{ color: "#0f0" }}
+                                  />
+                                ) : (
+                                  <CancelRoundedIcon color="error" />
+                                )}
                               </TableCell>
                             </TableRow>
                           ))
@@ -287,7 +286,7 @@ class PassportApplicationSingle extends Component {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            marginTop: '1rem'
+            marginTop: "1rem",
           }}
         >
           <Button variant="contained" color="primary">
@@ -296,7 +295,13 @@ class PassportApplicationSingle extends Component {
         </div>
       </BossContainer>
     );
+  };
+
+  render() {
+    return this.state.application === undefined
+      ? null
+      : this.renderApplication();
   }
 }
 
-export default PassportApplicationSingle;
+export default PassportApplication;

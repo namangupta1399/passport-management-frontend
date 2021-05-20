@@ -132,7 +132,7 @@ export default function Admin() {
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justify="center">
               <Grid item>
-                  <Button variant="contained" color="primary">
+                  <Button component={Link} to="/user/profile" variant="contained" color="primary">
                     View user profile
                   </Button>
                 </Grid>
@@ -157,12 +157,12 @@ export default function Admin() {
                   />
                   <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      Manage Applicants
+                      Manage Users
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small" color="primary">
-                     View all registered applicants
+                    <Button component={Link} to="/admin/users" size="small" color="primary">
+                     View all users
                     </Button>
                   </CardActions>
                 </Card>
@@ -221,7 +221,7 @@ export default function Admin() {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small" color="primary">
+                    <Button component={Link} to="/admin/helpdesk" size="small" color="primary">
                       View all queries
                     </Button>
                   </CardActions>

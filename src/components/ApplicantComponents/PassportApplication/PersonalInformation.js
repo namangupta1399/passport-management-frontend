@@ -151,7 +151,7 @@ class PersonalInformation extends Component {
               <RadioGroup
                 aria-label="isIndian"
                 name="isIndian"
-                value={isIndian}
+                value={isIndian.toString()}
                 onChange={this.handleChange}
               >
                 <FormControlLabel value="true" control={<Radio required />} label="Yes" />

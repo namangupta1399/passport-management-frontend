@@ -1,28 +1,31 @@
+import {
+  Button,
+  CssBaseline,
+  Paper,
+  Step,
+  StepLabel,
+  Stepper,
+  Typography,
+  withStyles,
+} from "@material-ui/core";
 import React, { Component } from "react";
-import { withStyles } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Paper from "@material-ui/core/Paper";
-import Stepper from "@material-ui/core/Stepper";
-import Step from "@material-ui/core/Step";
-import StepLabel from "@material-ui/core/StepLabel";
-import Button from "@material-ui/core/Button";
-import Link from "@material-ui/core/Link";
-import Typography from "@material-ui/core/Typography";
+import { Link } from "react-router-dom";
+import ApplicantService from "../../../services/ApplicantService";
+import PersonalInformation from "./PersonalInformation";
 import Address from "./Address";
 import Document from "./Document";
-import DocumentDTO from "../../Models/DocumentDTO";
-import PersonalInformation from "./PersonalInformation";
-import BossContainer from "../BossContainer";
-import ApplicantService from "../../services/ApplicantService";
+import DocumentDTO from "../../../Models/DocumentDTO";
+import AddressDTO from "../../../Models/AddressDTO";
+import PassportApplicationDTO from "../../../Models/PassportApplicationDTO";
+import BossContainer from "../../BossContainer";
 import Alert from "@material-ui/lab/Alert";
-import PassportApplicationDTO from "../../Models/PassportApplicationDTO";
-import AddressDTO from "../../Models/AddressDTO";
+import LoginService from "../../../services/LoginService";
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
+      <Link to="/" color="inherit" href="https://material-ui.com/">
         PassportPalace
       </Link>{" "}
       {new Date().getFullYear()}
@@ -70,12 +73,13 @@ const styles = (theme) => ({
 
 const steps = ["Personal Information", "Contact Details", "Documents"];
 
-class PassportApplication extends Component {
+class NewPassportApplication extends Component {
   classes = withStyles();
 
   appService = new ApplicantService();
+  loginService = new LoginService();
 
-  state = {
+  initialState = {
     activeStep: 0,
     personalInfo: {
       firstName: "",
@@ -102,13 +106,15 @@ class PassportApplication extends Component {
       pan: "",
     },
     user: {
-      id: 79,
+      id: "",
     },
     applicationStatus: false,
     loading: false,
     success: undefined,
     error: undefined,
   };
+
+  state = {...this.initialState};
 
   getStepContent = (step) => {
     switch (step) {
@@ -185,6 +191,8 @@ class PassportApplication extends Component {
     e.preventDefault();
     console.log(this.state);
 
+    const user = this.loginService.getCurrentUser();
+
     const {
       firstName,
       middleName,
@@ -229,7 +237,7 @@ class PassportApplication extends Component {
       address,
       [aadhaar, panNo],
       this.state.applicationStatus,
-      this.state.user
+      { id: user.id }
     );
     console.log(passportApplication);
     // return;
@@ -241,7 +249,7 @@ class PassportApplication extends Component {
         this.setState({
           ...this.initialState,
           error: "",
-          success: "User register successfully!",
+          success: "Application submitted successfully!",
         });
       })
       .catch((err) => {
@@ -314,4 +322,4 @@ class PassportApplication extends Component {
   }
 }
 
-export default withStyles(styles)(PassportApplication);
+export default withStyles(styles)(NewPassportApplication);

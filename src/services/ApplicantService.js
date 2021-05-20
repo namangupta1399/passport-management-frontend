@@ -40,7 +40,7 @@ class ApplicantService {
   // Update user
   updateUser = (user) => {
     return axios
-      .put(`${BASE_URL}/user/update`, user)
+      .put(`${BASE_URL}/applicant/user/update`, user)
       .then((res) => res.data)
       .catch((err) => {
         throw new Error(err.response.data.message);
@@ -60,7 +60,17 @@ class ApplicantService {
   // Get passport application details
   getPassportApplication = (appId) => {
     return axios
-      .get(`${BASE_URL}/application/${appId}`)
+      .get(`${BASE_URL}/applicant/application/${appId}`)
+      .then((res) => res.data)
+      .catch((err) => {
+        throw new Error(err.response.data.message);
+      });
+  };
+
+  // Get passport application by user id
+  getPassportApplicationByUser = (userId) => {
+    return axios
+      .get(`${BASE_URL}/applicant/application/user/${userId}`)
       .then((res) => res.data)
       .catch((err) => {
         throw new Error(err.response.data.message);
@@ -70,7 +80,7 @@ class ApplicantService {
   // Update passport application
   updatePassportApplication = (application) => {
     return axios
-      .put(`${BASE_URL}/application/update`, application)
+      .put(`${BASE_URL}/applicant/application/update`, application)
       .then((res) => res.data)
       .catch((err) => {
         throw new Error(err.response.data.message);
@@ -105,7 +115,7 @@ class ApplicantService {
       .catch((err) => {
         throw new Error("ERROR");
       });
-  }
+  };
 
   // Update helpdesk query
   // updateHelpdeskQuery = (queryId) => {
@@ -125,7 +135,7 @@ class ApplicantService {
       .catch((err) => {
         throw new Error(err.response.data.message);
       });
-  }
+  };
 }
 
 export default ApplicantService;

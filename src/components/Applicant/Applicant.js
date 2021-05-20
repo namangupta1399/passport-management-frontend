@@ -160,7 +160,7 @@ export default function Applicant() {
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justify="center">
               <Grid item>
-                  <Button variant="contained" color="primary">
+                  <Button component={Link} to="/user/profile" variant="contained" color="primary">
                     View user profile
                   </Button>
                 </Grid>
