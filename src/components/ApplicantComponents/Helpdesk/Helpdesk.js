@@ -68,8 +68,8 @@ class Helpdesk extends Component {
   render() {
     return (
       <BossContainer>
-        <h1 style={{ textAlign: "center" }}>Helpdesk Queries</h1>
-        <BossCard style={{maxWidth: '1300px'}}>
+        <BossCard style={{ maxWidth: "1100px" }}>
+          <h1 style={{ textAlign: "center" }}>Helpdesk Queries</h1>
           <TableContainer>
             <Table aria-label="simple table">
               <TableHead>

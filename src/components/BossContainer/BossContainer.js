@@ -8,6 +8,7 @@ function BossContainer(props) {
     // background: 'rgba(255,255,255,.5)' ,
     padding: '4rem 2rem',  
     position: 'relative',
+    ...props.style
   }
   const noPadding = props.noPadding ? "p-0" : "";
   return (

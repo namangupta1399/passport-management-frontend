@@ -64,6 +64,12 @@ class SignIn extends Component {
           this.setState({
             ...this.initialState,
           });
+          if(res.userRole === "applicant") {
+            this.props.history.push("/applicant");
+          }
+          if(res.userRole === "admin") {
+            this.props.history.push("/admin");
+          }
         })
         .catch((err) => {
           const error = err.message.substring(

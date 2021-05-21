@@ -73,7 +73,7 @@ const CustomCarousel = (props) => {
   }
 
   return (
-    <div>
+    <div style={{boxShadow: "0 2px 2px 0px #fff", zIndex: 9}}>
       <Carousel activeIndex={activeIndex} next={next} previous={previous}>
         <CarouselIndicators
           items={items}

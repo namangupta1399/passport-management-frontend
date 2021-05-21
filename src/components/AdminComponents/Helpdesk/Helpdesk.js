@@ -103,7 +103,7 @@ class Helpdesk extends Component {
               endIcon={<ReplyIcon />}
               onClick={() => {
                 this.setState({ currentQuery: { ...query } });
-                window.scrollTo(0,document.body.scrollHeight);
+                window.scrollTo(0, document.body.scrollHeight);
               }}
               disabled={query.isResolved}
             >
@@ -132,8 +132,8 @@ class Helpdesk extends Component {
   render() {
     return (
       <BossContainer>
-        <h1 style={{ textAlign: "center" }}>Helpdesk Queries</h1>
         <BossCard>
+          <h1 style={{ textAlign: "center" }}>Helpdesk Queries</h1>
           <TableContainer>
             <Table aria-label="simple table">
               <TableHead>

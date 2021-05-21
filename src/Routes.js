@@ -22,91 +22,132 @@ import PassportApplication from "./components/ApplicantComponents/PassportApplic
 import NewPassportApplication from "./components/ApplicantComponents/PassportApplication/NewPassportApplication";
 import EditPassportApplication from "./components/ApplicantComponents/PassportApplication/EditPassportApplication";
 import Passport from "./components/AdminComponents/Passport";
+import Contact from "./components/Contact";
+import AdminRoute from "./Routes/AdminRoute";
+import PrivateRoute from "./Routes/PrivateRoute";
+import Terms from './components/Terms'
+import Privacy from "./components/Privacy/Privacy";
 
 export const routesList = [
   {
     path: "/",
     component: Home,
+    type: "common",
   },
   {
     path: "/about",
     component: About,
+    type: "common",
   },
   {
-    path: "/login",
+    path: "/contact",
+    component: Contact,
+    type: "common",
+  },
+  {
+    path: "/terms",
+    component: Terms,
+    type: "common",
+  },
+  {
+    path: "/privacy",
+    component: Privacy,
+    type: "common",
+  },
+  {
+    path: "/signin",
     component: SignIn,
+    type: "common",
   },
   {
-    path: "/register",
+    path: "/signup",
     component: SignUp,
+    type: "common",
   },
   {
     path: "/user/profile",
     component: UserProfile,
+    type: "common",
   },
   {
     path: "/applicant",
     component: Applicant,
+    type: "applicant",
   },
   {
     path: "/applicant/helpdesk",
     component: ApplicantHelpdesk,
+    type: "applicant",
   },
   {
     path: "/applicant/helpdesk/new",
     component: NewQuery,
+    type: "applicant",
   },
   {
     path: "/applicant/passportApplication/new",
     component: NewPassportApplication,
+    type: "applicant",
   },
   {
     path: "/applicant/passportApplication",
     component: PassportApplication,
+    type: "applicant",
   },
   {
     path: "/applicant/passportApplication/edit",
     component: EditPassportApplication,
+    type: "applicant",
   },
   {
     path: "/admin",
     component: Admin,
+    type: "admin",
   },
   {
     path: "/admin/users",
     component: AdminUsers,
+    type: "admin",
   },
   {
     path: "/admin/users/new",
     component: AdminNewUser,
+    type: "admin",
   },
   {
     path: "/admin/users/edit/:userId",
     component: AdminEditUser,
+    type: "admin",
   },
   {
     path: "/admin/applications",
     component: AdminApplications,
+    type: "admin",
   },
   {
     path: "/admin/applications/:appId",
     component: PassportApplicationSingle,
+    type: "admin",
   },
   {
     path: "/admin/passports",
     component: Passport,
+    type: "admin",
   },
   {
     path: "/admin/helpdesk",
     component: AdminHelpdesk,
+    type: "admin",
   },
   {
     path: "/sitemap",
     component: Sitemap,
+    type: "common",
   },
   {
     path: "/*",
     component: PageNotFound,
+    type: "common",
   },
 ];
 
@@ -114,14 +155,37 @@ const Routes = () => {
   return (
     <BrowserRouter>
       <Switch>
-        {routesList.map((route, index) => (
-          <Route
-            key={index}
-            exact
-            path={route.path}
-            component={route.component}
-          />
-        ))}
+        {routesList.map((route, index) => {
+          switch (route.type) {
+            case "admin":
+              return (
+                <AdminRoute
+                  key={index}
+                  exact
+                  path={route.path}
+                  component={route.component}
+                />
+              );
+            case "applicant":
+              return (
+                <PrivateRoute
+                  key={index}
+                  exact
+                  path={route.path}
+                  component={route.component}
+                />
+              );
+            default:
+              return (
+                <Route
+                  key={index}
+                  exact
+                  path={route.path}
+                  component={route.component}
+                />
+              );
+          }
+        })}
       </Switch>
     </BrowserRouter>
   );

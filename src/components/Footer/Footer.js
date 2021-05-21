@@ -28,10 +28,10 @@ const Footer = () => {
             <h3>About Us</h3>
             <ul className="list-unstyled">
               <li>
-                <Link>Terms &amp; Conditions</Link>
+                <Link to="/terms">Terms &amp; Conditions</Link>
               </li>
               <li>
-                <Link>Privacy Policy</Link>
+                <Link to="/privacy">Privacy Policy</Link>
               </li>
             </ul>
           </div>
@@ -49,9 +49,9 @@ const Footer = () => {
           <div>
             <h3>Contact Us</h3>
             <ul className="list-unstyled">
-              <li>Capgemini Consultancy</li>
-              <li>+91 8763082613</li>
-              <li>abc@capgemini.com</li>
+              <li>HOP Consultancy</li>
+              <li>+91 9876543211</li>
+              <li>admin@hopindia.com</li>
             </ul>
           </div>
           <div>
@@ -72,7 +72,7 @@ const Footer = () => {
         <div className="text-white text-right p-3">
           <p>
             &copy;{new Date().getFullYear()} House Of Passports | All rights
-            reserved | Terms of Service | Privacy
+            reserved | <Link to="/terms">Terms of Service</Link> | <Link to="/privacy">Privacy</Link>
           </p>
         </div>
       </footer>

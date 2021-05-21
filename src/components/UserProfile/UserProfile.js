@@ -16,6 +16,7 @@ import LoginService from "../../services/LoginService";
 import User from "../../Models/User";
 import ApplicantService from "../../services/ApplicantService";
 import BossCard from "../BossCard";
+import { withRouter } from "react-router";
 
 const styles = (theme) => ({
   paper: {
@@ -54,7 +55,11 @@ class UserProfile extends Component {
   };
 
   componentDidMount() {
-    const user = this.loginService.getCurrentUser();
+    const user = this.loginService.isLoggedIn();
+    if(user === null) {
+      this.props.history.push("/signin");
+    }
+
     console.log(user);
     const { id, email, password, userRole } = user;
     this.setState({
@@ -174,4 +179,4 @@ class UserProfile extends Component {
   }
 }
 
-export default withStyles(styles)(UserProfile);
+export default withRouter(withStyles(styles)(UserProfile));

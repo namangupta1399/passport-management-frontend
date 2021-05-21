@@ -17,13 +17,14 @@ class LoginService {
 
   // Check if logged in
   isLoggedIn = () => {
-    return localStorage.getItem("user") !== null;
-  };
-
-  // Get current user
-  getCurrentUser = () => {
     return JSON.parse(localStorage.getItem("user"));
   };
+
+  // Logout
+  signout = (next) => {
+    localStorage.removeItem("user");
+    next();
+  }
 }
 
 export default LoginService;

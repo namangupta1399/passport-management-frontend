@@ -17,6 +17,9 @@ import imageA from "../../assets/images/home/imageA.png";
 import imageB from "../../assets/images/home/imageB.png";
 import imageC from "../../assets/images/home/imageC.png";
 import CustomCarousel from "./CustomCarousel";
+import OtherServices from "../../services/OtherServices";
+import { Component } from "react";
+import howFlowChart from '../../assets/images/how.png';
 
 const items = [
   {
@@ -35,63 +38,49 @@ const items = [
     key: "3",
   },
 ];
-const Home = () => (
-  <BossContainer noPadding>
-    <CustomCarousel />
 
-    {/* <Container className="root">
-      <Grid container spacing="4">
-        <Grid item xs={4}>
-          <Card>
-            <CardActionArea>
-              <CardMedia
-                component="img"
-                alt="Time"
-                height="300"
-                image="https://cdn0.iconfinder.com/data/icons/service-5/48/service13-256.png"
-                title="Time"
-              />
-              <CardContent>
-                <Typography variant="h5">Time efficient</Typography>
-                <Typography variant="subtitle1"> saves time</Typography>
-              </CardContent>
-            </CardActionArea>
-          </Card>
-        </Grid>
+class NewsStrip extends Component {
+  render() {
+    const { articles } = this.props;
+    return (
+      <div  className="d-flex align-items-center" style={{background: '#fff',fontWeight: 'bold', height: '40px'}}>
+        <marquee>
+        {articles.length > 0 &&
+          articles.map((article) => <span>{article.description}</span>)}
+      </marquee>
+      </div>
+    );
+  }
+}
 
-        <Grid item xs={4}>
-          <Card>
-            <CardMedia
-              component="img"
-              alt="Time"
-              height="300"
-              image="https://cdn0.iconfinder.com/data/icons/service-5/48/service27-512.png"
-              title="Time"
-            />
-            <CardContent>
-              <Typography variant="h5">User friendly</Typography>
-              <Typography variant="subtitle1"> saves time</Typography>
-            </CardContent>
-          </Card>
-        </Grid>
+class Home extends Component {
+  state = {
+    news: [],
+  };
 
-        <Grid item xs={4}>
-          <Card>
-            <CardMedia
-              component="img"
-              alt="Time"
-              height="300"
-              image="https://cdn0.iconfinder.com/data/icons/service-5/48/service16-256.png"
-              title="Time"
-            />
-            <CardContent>
-              <Typography variant="h5">Secure</Typography>
-              <Typography variant="subtitle1"> saves time</Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
-    </Container> */}
-  </BossContainer>
-);
+  otherService = new OtherServices();
+  componentDidMount() {
+    this.otherService
+      .getNews()
+      .then((res) => {
+        console.log(res.articles);
+        this.setState({ news: [...res.articles] });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  render() {
+    return (
+      <BossContainer noPadding>
+        <CustomCarousel />
+      <div className="d-flex align-items-center justify-content-center flex-column pt-3 pb-5" style={{backgroundImage: 'linear-gradient(45deg, #00000090, #00000090)'}} >
+          <h1 className="my-5 font-weight-bold text-white">How It Works ?</h1>
+          <img src={howFlowChart} alt="" style={{width: '60%'}} />
+        </div>
+        <NewsStrip articles={[...this.state.news]} />
+      </BossContainer>
+    );
+  }
+}
 export default Home;

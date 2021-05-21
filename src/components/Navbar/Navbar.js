@@ -8,9 +8,10 @@ import {
   Toolbar,
   Typography,
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import backgroundImage from "../../assets/images/header.webp";
 import logo from "../../assets/images/hop_logo_new.png";
+import LoginService from "../../services/LoginService";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,13 +31,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Navbar() {
+const Navbar = (props) => {
   const classes = useStyles();
+  const loginService = new LoginService();
+  const { isLoggedIn, signout } = loginService;
 
   return (
     <div className={classes.root}>
       <AppBar position="static" className={classes.header}>
-        <Toolbar style={{boxShadow: '0 2px 2px 0px #fff', zIndex: 9}}>
+        <Toolbar style={{ boxShadow: "0 2px 2px 0px #fff", zIndex: 9 }}>
           <img src={logo} alt="Logo" style={{ width: "17rem" }} />
           <Container style={{ display: "flex" }}>
             <Typography variant="h6" className={classes.title}>
@@ -58,22 +61,39 @@ function Navbar() {
             >
               About Us
             </Button>
-            <Button
-              className={classes.btn}
-              to="/login"
-              component={Link}
-              variant="contained"
-            >
-              Login
-            </Button>
-            <Button
-              className={classes.btn}
-              component={Link}
-              to="/register"
-              variant="contained"
-            >
-              REGISTER
-            </Button>
+            {!isLoggedIn() && (
+              <>
+                <Button
+                  className={classes.btn}
+                  to="/signin"
+                  component={Link}
+                  variant="contained"
+                >
+                  Login
+                </Button>
+                <Button
+                  className={classes.btn}
+                  component={Link}
+                  to="/signup"
+                  variant="contained"
+                >
+                  REGISTER
+                </Button>
+              </>
+            )}
+            {isLoggedIn() && (
+              <Button
+                className={classes.btn}
+                variant="contained"
+                onClick={() => {
+                  signout(() => {
+                    props.history.push("/");
+                  });
+                }}
+              >
+                Signout
+              </Button>
+            )}
             <Button
               className={classes.btn}
               to="/contact"
@@ -95,6 +115,6 @@ function Navbar() {
       </AppBar>
     </div>
   );
-}
+};
 
-export default Navbar;
+export default withRouter(Navbar);
