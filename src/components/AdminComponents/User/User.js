@@ -16,6 +16,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AddIcon from "@material-ui/icons/Add";
 import { Link } from "react-router-dom";
+import BossCard from "../../BossCard";
 
 class User extends Component {
   constructor(props) {
@@ -119,22 +120,24 @@ class User extends Component {
             New user
           </Button>
         </div>
-        <TableContainer component={Paper}>
-          <Table hover aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>S.no.</TableCell>
-                <TableCell>Email</TableCell>
-                <TableCell>Role</TableCell>
-                <TableCell>Created on</TableCell>
-                <TableCell>Updated on</TableCell>
-                <TableCell>Edit</TableCell>
-                <TableCell>Remove</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>{this.renderTable()}</TableBody>
-          </Table>
-        </TableContainer>
+        <BossCard>
+          <TableContainer>
+            <Table hover aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>S.no.</TableCell>
+                  <TableCell>Email</TableCell>
+                  <TableCell>Role</TableCell>
+                  <TableCell>Created on</TableCell>
+                  <TableCell>Updated on</TableCell>
+                  <TableCell>Edit</TableCell>
+                  <TableCell>Remove</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>{this.renderTable()}</TableBody>
+            </Table>
+          </TableContainer>
+        </BossCard>
       </BossContainer>
     );
   }

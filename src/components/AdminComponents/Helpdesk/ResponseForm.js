@@ -7,13 +7,14 @@ import {
 } from "@material-ui/core";
 import React, { Component } from "react";
 import SendIcon from "@material-ui/icons/Send";
+import BossCard from "../../BossCard";
 
 class ResponseForm extends Component {
   render() {
     const query = this.props.query;
     // console.log(query);
     return (
-      <Card>
+      <BossCard style={{marginTop: '1rem'}}>
         <h2 style={{ textAlign: "center" }}>Query {query.helpdeskId}</h2>
         <h4>Query: {query.query}</h4>
         <form onSubmit={this.props.handleSubmit}>
@@ -38,7 +39,7 @@ class ResponseForm extends Component {
             Send
           </Button>
         </form>
-      </Card>
+      </BossCard>
     );
   }
 }

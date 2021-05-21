@@ -83,6 +83,46 @@ class AdminService {
       });
   };
 
+  // Update application status
+  updateApplicationStatus = (data) => {
+    return axios
+      .put(`${BASE_URL}/admin/application/status/update`, data)
+      .then((res) => res.data)
+      .catch((err) => {
+        throw new Error(err.response.data.message);
+      });
+  };
+
+  // Issue passport
+  issuePassport = (appNo) => {
+    return axios
+      .post(`${BASE_URL}/admin/passport/new/${appNo}`)
+      .then((res) => res.data)
+      .catch((err) => {
+        throw new Error(err.response.data.message);
+      });
+  };
+
+  // Get passport by app no
+  getPassportByApp = (appNo) => {
+    return axios
+      .get(`${BASE_URL}/admin/passport/app/${appNo}`)
+      .then((res) => res.data)
+      .catch((err) => {
+        throw new Error(err.response.data.message);
+      });
+  };
+
+  // Get all passports
+  getAllPassports = () => {
+    return axios
+      .get(`${BASE_URL}/admin/passports`)
+      .then((res) => res.data)
+      .catch((err) => {
+        throw new Error(err.response.data.message);
+      });
+  };
+
   // Get all queries
   getAllHelpdeskQueries = () => {
     return axios

@@ -4,6 +4,7 @@ import BossContainer from "../../BossContainer";
 import SendIcon from "@material-ui/icons/Send";
 import ApplicantService from "../../../services/ApplicantService";
 import { withRouter } from "react-router";
+import BossCard from "../../BossCard";
 
 class NewQuery extends Component {
   service = new ApplicantService();
@@ -41,33 +42,35 @@ class NewQuery extends Component {
   render() {
     return (
       <BossContainer>
-        <h1 style={{ textAlign: "center" }}>Submit your query here</h1>
-        <hr />
-        <form onSubmit={this.handleSubmit}>
-          <TextField
-            type="text"
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="query"
-            label="Query"
-            name="query"
-            autoComplete="email"
-            autoFocus
-            value={this.state.query}
-            onChange={this.handleChange}
-          />
-          <Button
-            type="submit"
-            size="large"
-            variant="contained"
-            color="primary"
-            endIcon={<SendIcon />}
-          >
-            Send
-          </Button>
-        </form>
+        <BossCard style={{maxWidth: '900px', padding: '100px'}}>
+          <h1 style={{ textAlign: "center" }}>Submit your query here</h1>
+          <hr />
+          <form onSubmit={this.handleSubmit}>
+            <TextField
+              type="text"
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="query"
+              label="Query"
+              name="query"
+              autoComplete="email"
+              autoFocus
+              value={this.state.query}
+              onChange={this.handleChange}
+            />
+            <Button
+              type="submit"
+              size="large"
+              variant="contained"
+              color="primary"
+              endIcon={<SendIcon />}
+            >
+              Send
+            </Button>
+          </form>
+        </BossCard>
       </BossContainer>
     );
   }

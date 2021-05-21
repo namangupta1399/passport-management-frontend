@@ -21,7 +21,7 @@ import BossContainer from "../../BossContainer";
 import CheckCircleOutlineRoundedIcon from "@material-ui/icons/CheckCircleOutlineRounded";
 import CancelRoundedIcon from "@material-ui/icons/CancelRounded";
 import DocumentStatus from "../../../Models/DocumentStatus";
-import { Redirect } from "react-router";
+import { Redirect, withRouter } from "react-router";
 import LoginService from "../../../services/LoginService";
 import ApplicantService from "../../../services/ApplicantService";
 
@@ -72,6 +72,7 @@ class PassportApplication extends Component {
       })
       .catch((err) => {
         console.log(err);
+        this.props.history.push("/applicant/passportApplication/new");
       });
   }
 
@@ -290,7 +291,7 @@ class PassportApplication extends Component {
           }}
         >
           <Button variant="contained" color="primary">
-            Generate Passport
+            View Passport
           </Button>
         </div>
       </BossContainer>
@@ -298,10 +299,8 @@ class PassportApplication extends Component {
   };
 
   render() {
-    return this.state.application === undefined
-      ? null
-      : this.renderApplication();
+    return this.renderApplication();
   }
 }
 
-export default PassportApplication;
+export default withRouter(PassportApplication);

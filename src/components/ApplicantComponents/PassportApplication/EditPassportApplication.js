@@ -20,18 +20,7 @@ import PassportApplicationDTO from "../../../Models/PassportApplicationDTO";
 import BossContainer from "../../BossContainer";
 import Alert from "@material-ui/lab/Alert";
 import LoginService from "../../../services/LoginService";
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link to="/" color="inherit" href="https://material-ui.com/">
-        PassportPalace
-      </Link>
-      {new Date().getFullYear()}
-    </Typography>
-  );
-}
+import BossCard from "../../BossCard";
 
 const styles = (theme) => ({
   appBar: {
@@ -118,7 +107,8 @@ class EditPassportApplication extends Component {
 
   componentDidMount() {
     const currentUser = this.loginService.getCurrentUser();
-    this.appService.getPassportApplicationByUser(currentUser.id).then((res) => {
+    this.appService.getPassportApplicationByUser(currentUser.id)
+    .then((res) => {
       const {
         firstName,
         middleName,
@@ -159,7 +149,11 @@ class EditPassportApplication extends Component {
         applicationStatus,
         user,
       });
-    });
+    })
+    .catch(err => {
+      console.log(err);
+      this.props.history.push("/applicant/passportApplication/new");
+    })
   }
 
   getStepContent = (step) => {
@@ -256,36 +250,6 @@ class EditPassportApplication extends Component {
     const { houseNo, street, state, district, pinCode, mobileNo } =
       this.state.address;
 
-    // const address = new AddressDTO(
-    //   houseNo,
-    //   street,
-    //   state,
-    //   district,
-    //   pinCode,
-    //   mobileNo
-    // );
-    // const aadhaar = new DocumentDTO(
-    //   "aadhaar",
-    //   this.state.documents.aadhaar,
-    //   false
-    // );
-    // const panNo = new DocumentDTO("pan", this.state.documents.pan, false);
-    // const passportApplication = new PassportApplicationDTO(
-    //   firstName,
-    //   middleName,
-    //   lastName,
-    //   gender,
-    //   dateOfBirth,
-    //   placeOfBirth,
-    //   maritalStatus,
-    //   isIndian,
-    //   employmentType,
-    //   educationalQualification,
-    //   address,
-    //   [aadhaar, panNo],
-    //   this.state.applicationStatus,
-    //   { id: user.id }
-    // );
     application.firstName = firstName;
     application.middleName = middleName;
     application.lastName = lastName;
@@ -296,7 +260,7 @@ class EditPassportApplication extends Component {
     application.isIndian = isIndian;
     application.employmentType = employmentType;
     application.educationalQualification = educationalQualification;
-    // application.address = { ...address };
+
     application.documents[0].documentValue = this.state.documents.aadhaar;
     application.documents[1].documentValue = this.state.documents.pan;
     application.user = { id: user.id };
@@ -315,7 +279,7 @@ class EditPassportApplication extends Component {
       .then((res) => {
         console.log("RES:", res);
         this.setState({
-          ...this.initialState,
+          activeStep: 0,
           error: "",
           success: "Application updated successfully!",
         });
@@ -337,12 +301,6 @@ class EditPassportApplication extends Component {
     return (
       <BossContainer>
         <CssBaseline />
-        {this.state.success ? (
-          <Alert severity="success">{this.state.success}</Alert>
-        ) : null}
-        {this.state.error ? (
-          <Alert severity="error">{this.state.error}</Alert>
-        ) : null}
         <form
           onSubmit={
             activeStep === steps.length - 1
@@ -351,7 +309,13 @@ class EditPassportApplication extends Component {
           }
         >
           <main className={classes.layout}>
-            <Paper className={classes.paper}>
+            <BossCard>
+            {this.state.success ? (
+          <Alert severity="success">{this.state.success}</Alert>
+        ) : null}
+        {this.state.error ? (
+          <Alert severity="error">{this.state.error}</Alert>
+        ) : null}
               <Typography component="h1" variant="h4" align="center">
                 Edit Passport Application
               </Typography>
@@ -380,8 +344,7 @@ class EditPassportApplication extends Component {
                     : "Next"}
                 </Button>
               </div>
-            </Paper>
-            <Copyright />
+            </BossCard>
           </main>
         </form>
         <h1>{this.state.loading ? "Loading..." : null}</h1>

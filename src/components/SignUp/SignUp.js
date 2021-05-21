@@ -13,14 +13,9 @@ import User from "../../Models/User";
 import { CircularProgress } from "@material-ui/core";
 import ApplicantService from "../../services/ApplicantService";
 import Alert from "@material-ui/lab/Alert";
+import BossCard from "../BossCard";
 
 const styles = (theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
@@ -90,17 +85,13 @@ class SignUp extends Component {
     return (
       <BossContainer component="main" maxWidth="xs">
         <CssBaseline />
-        <p>
+        <BossCard style={{ maxWidth: "600px" }} flex>
           {this.state.success ? (
             <Alert severity="success">{this.state.success}</Alert>
           ) : null}
-        </p>
-        <p>
           {this.state.error ? (
             <Alert severity="error">{this.state.error}</Alert>
           ) : null}
-        </p>
-        <div className={this.classes.paper}>
           <Avatar className={this.classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
@@ -155,15 +146,13 @@ class SignUp extends Component {
                 "Sign Up"
               )}
             </Button>
-            <Grid container justify="flex-end">
-              <Grid item>
-                <Link to="/login" variant="body2">
-                  Already have an account? Sign in
-                </Link>
-              </Grid>
-            </Grid>
+            <div className="text-center">
+              <Link to="/login" variant="body2">
+                Already have an account? Sign in
+              </Link>
+            </div>
           </form>
-        </div>
+        </BossCard>
       </BossContainer>
     );
   }

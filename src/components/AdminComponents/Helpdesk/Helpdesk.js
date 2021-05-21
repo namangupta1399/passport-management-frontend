@@ -17,6 +17,7 @@ import ResponseForm from "./ResponseForm";
 import CheckCircleOutlineRoundedIcon from "@material-ui/icons/CheckCircleOutlineRounded";
 import CancelRoundedIcon from "@material-ui/icons/CancelRounded";
 import HelpdeskDTO from "../../../Models/HelpdeskDTO";
+import BossCard from "../../BossCard";
 
 class Helpdesk extends Component {
   constructor(props) {
@@ -102,6 +103,7 @@ class Helpdesk extends Component {
               endIcon={<ReplyIcon />}
               onClick={() => {
                 this.setState({ currentQuery: { ...query } });
+                window.scrollTo(0,document.body.scrollHeight);
               }}
               disabled={query.isResolved}
             >
@@ -131,23 +133,25 @@ class Helpdesk extends Component {
     return (
       <BossContainer>
         <h1 style={{ textAlign: "center" }}>Helpdesk Queries</h1>
-        <TableContainer component={Paper}>
-          <Table aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>S.no.</TableCell>
-                <TableCell>Query ID</TableCell>
-                <TableCell>User</TableCell>
-                <TableCell>Query</TableCell>
-                <TableCell>Solution</TableCell>
-                <TableCell>Raised on</TableCell>
-                <TableCell>Reply</TableCell>
-                <TableCell>isResolved</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>{this.renderTable()}</TableBody>
-          </Table>
-        </TableContainer>
+        <BossCard>
+          <TableContainer>
+            <Table aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>S.no.</TableCell>
+                  <TableCell>Query ID</TableCell>
+                  <TableCell>User</TableCell>
+                  <TableCell>Query</TableCell>
+                  <TableCell>Solution</TableCell>
+                  <TableCell>Raised on</TableCell>
+                  <TableCell>Reply</TableCell>
+                  <TableCell>isResolved</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>{this.renderTable()}</TableBody>
+            </Table>
+          </TableContainer>
+        </BossCard>
         {this.state.currentQuery ? (
           <ResponseForm
             query={this.state.currentQuery}

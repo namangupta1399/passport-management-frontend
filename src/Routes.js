@@ -21,6 +21,7 @@ import UserProfile from "./components/UserProfile/UserProfile";
 import PassportApplication from "./components/ApplicantComponents/PassportApplication/PassportApplication";
 import NewPassportApplication from "./components/ApplicantComponents/PassportApplication/NewPassportApplication";
 import EditPassportApplication from "./components/ApplicantComponents/PassportApplication/EditPassportApplication";
+import Passport from "./components/AdminComponents/Passport";
 
 export const routesList = [
   {
@@ -90,6 +91,10 @@ export const routesList = [
   {
     path: "/admin/applications/:appId",
     component: PassportApplicationSingle,
+  },
+  {
+    path: "/admin/passports",
+    component: Passport,
   },
   {
     path: "/admin/helpdesk",

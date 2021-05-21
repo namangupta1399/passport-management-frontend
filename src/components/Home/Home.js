@@ -12,7 +12,6 @@ import {
   CardMedia,
   CardActionArea,
 } from "@material-ui/core";
-import Footer from "../FooterNew";
 import Carousel from "./CustomCarousel";
 import imageA from "../../assets/images/home/imageA.png";
 import imageB from "../../assets/images/home/imageB.png";
@@ -37,7 +36,7 @@ const items = [
   },
 ];
 const Home = () => (
-  <BossContainer>
+  <BossContainer noPadding>
     <CustomCarousel />
 
     {/* <Container className="root">
@@ -93,7 +92,6 @@ const Home = () => (
         </Grid>
       </Grid>
     </Container> */}
-    <Footer />
   </BossContainer>
 );
 export default Home;

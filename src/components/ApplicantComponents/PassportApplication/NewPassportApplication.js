@@ -20,19 +20,7 @@ import PassportApplicationDTO from "../../../Models/PassportApplicationDTO";
 import BossContainer from "../../BossContainer";
 import Alert from "@material-ui/lab/Alert";
 import LoginService from "../../../services/LoginService";
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link to="/" color="inherit" href="https://material-ui.com/">
-        PassportPalace
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import BossCard from "../../BossCard";
 
 const styles = (theme) => ({
   appBar: {
@@ -114,7 +102,7 @@ class NewPassportApplication extends Component {
     error: undefined,
   };
 
-  state = {...this.initialState};
+  state = { ...this.initialState };
 
   getStepContent = (step) => {
     switch (step) {
@@ -283,7 +271,7 @@ class NewPassportApplication extends Component {
           }
         >
           <main className={classes.layout}>
-            <Paper className={classes.paper}>
+            <BossCard>
               <Typography component="h1" variant="h4" align="center">
                 New Passport Application
               </Typography>
@@ -312,8 +300,7 @@ class NewPassportApplication extends Component {
                     : "Next"}
                 </Button>
               </div>
-            </Paper>
-            <Copyright />
+            </BossCard>
           </main>
         </form>
         <h1>{this.state.loading ? "Loading..." : null}</h1>

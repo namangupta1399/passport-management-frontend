@@ -15,6 +15,7 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import LoginService from "../../services/LoginService";
 import User from "../../Models/User";
 import ApplicantService from "../../services/ApplicantService";
+import BossCard from "../BossCard";
 
 const styles = (theme) => ({
   paper: {
@@ -72,7 +73,7 @@ class UserProfile extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    
+
     const { id, email, password, userRole } = this.state;
     const user = {
       id,
@@ -105,13 +106,13 @@ class UserProfile extends Component {
     return (
       <BossContainer component="main" maxWidth="xs">
         <CssBaseline />
-        {this.state.success ? (
-          <Alert severity="success">{this.state.success}</Alert>
-        ) : null}
-        {this.state.error ? (
-          <Alert severity="error">{this.state.error}</Alert>
-        ) : null}
-        <div className={this.classes.paper}>
+        <BossCard style={{maxWidth: '600px'}} flex>
+          {this.state.success ? (
+            <Alert severity="success">{this.state.success}</Alert>
+          ) : null}
+          {this.state.error ? (
+            <Alert severity="error">{this.state.error}</Alert>
+          ) : null}
           <Avatar className={this.classes.avatar}>
             <AccountCircleIcon />
           </Avatar>
@@ -167,7 +168,7 @@ class UserProfile extends Component {
               )}
             </Button>
           </form>
-        </div>
+        </BossCard>
       </BossContainer>
     );
   }

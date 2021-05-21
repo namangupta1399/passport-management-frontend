@@ -14,14 +14,9 @@ import { Link } from "react-router-dom";
 import { FormControl, FormLabel, Radio, RadioGroup } from "@material-ui/core";
 import LoginService from "../../services/LoginService";
 import User from "../../Models/User";
+import BossCard from "../BossCard";
 
 const styles = (theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
@@ -85,9 +80,9 @@ class SignIn extends Component {
     let classes = this.props.classes;
     const { email, password, userRole } = this.state;
     return (
-      <BossContainer component="main" maxWidth="xs">
+      <BossContainer>
         <CssBaseline />
-        <div className={classes.paper}>
+        <BossCard style={{ maxWidth: "500px" }} flex>
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
@@ -123,7 +118,7 @@ class SignIn extends Component {
               value={password}
             />
             <Grid container spacing={3}>
-              <Grid item xs={6}>
+              <Grid item xs={7}>
                 <FormControl component="fieldset" margin="normal">
                   <FormLabel component="legend">User type</FormLabel>
                   <RadioGroup
@@ -148,7 +143,7 @@ class SignIn extends Component {
               </Grid>
               <Grid
                 item
-                xs={6}
+                xs={5}
                 style={{
                   display: "flex",
                   alignItems: "center",
@@ -170,20 +165,13 @@ class SignIn extends Component {
             >
               Sign In
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link to="/" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link to="/register" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
+            <div className="text-center">
+              <Link to="/register" variant="body2">
+                {"Don't have an account? Sign Up"}
+              </Link>
+            </div>
           </form>
-        </div>
+        </BossCard>
       </BossContainer>
     );
   }

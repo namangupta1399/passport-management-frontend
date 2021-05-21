@@ -12,9 +12,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { Radio } from "@material-ui/core";
 
 class PersonalInformation extends Component {
-
-  handleChange = e => {
-    this.props.handleChange(e, 'personalInfo');
+  handleChange = (e) => {
+    this.props.handleChange(e, "personalInfo");
   };
 
   render() {
@@ -37,7 +36,7 @@ class PersonalInformation extends Component {
           Personal Information
         </Typography>
         <Grid container spacing={3}>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={4}>
             <TextField
               required
               type="text"
@@ -50,7 +49,7 @@ class PersonalInformation extends Component {
               onChange={this.handleChange}
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={4}>
             <TextField
               type="text"
               id="middleName"
@@ -62,7 +61,7 @@ class PersonalInformation extends Component {
               onChange={this.handleChange}
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={4}>
             <TextField
               required
               type="text"
@@ -75,10 +74,11 @@ class PersonalInformation extends Component {
               onChange={this.handleChange}
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={7}>
             <FormControl component="fieldset" required>
               <FormLabel component="legend">Gender</FormLabel>
               <RadioGroup
+                className="flex-row"
                 aria-label="gender"
                 name="gender"
                 value={gender}
@@ -102,7 +102,8 @@ class PersonalInformation extends Component {
               </RadioGroup>
             </FormControl>
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={5}>
+          <FormLabel component="legend">Date Of Birth</FormLabel>
             <TextField
               required
               type="date"
@@ -145,17 +146,26 @@ class PersonalInformation extends Component {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12}>
             <FormControl component="fieldset" required>
               <FormLabel component="legend">is Indian</FormLabel>
               <RadioGroup
+                className="flex-row"
                 aria-label="isIndian"
                 name="isIndian"
                 value={isIndian.toString()}
                 onChange={this.handleChange}
               >
-                <FormControlLabel value="true" control={<Radio required />} label="Yes" />
-                <FormControlLabel value="false" control={<Radio required />} label="No" />
+                <FormControlLabel
+                  value="true"
+                  control={<Radio required />}
+                  label="Yes"
+                />
+                <FormControlLabel
+                  value="false"
+                  control={<Radio required />}
+                  label="No"
+                />
               </RadioGroup>
             </FormControl>
           </Grid>

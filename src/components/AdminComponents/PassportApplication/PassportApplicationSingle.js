@@ -21,6 +21,7 @@ import BossContainer from "../../BossContainer";
 import CheckCircleOutlineRoundedIcon from "@material-ui/icons/CheckCircleOutlineRounded";
 import CancelRoundedIcon from "@material-ui/icons/CancelRounded";
 import DocumentStatus from "../../../Models/DocumentStatus";
+import { withRouter } from "react-router";
 
 class PassportApplicationSingle extends Component {
   service = new AdminService();
@@ -54,6 +55,7 @@ class PassportApplicationSingle extends Component {
       },
       applicationStatus: undefined,
     },
+    passport: undefined,
     expanded: "panel1",
   };
 
@@ -65,6 +67,17 @@ class PassportApplicationSingle extends Component {
       .then((res) => {
         console.log(res);
         this.setState({ application: res });
+      })
+      .catch((err) => {
+        console.log(err);
+        alert(err);
+      });
+
+    this.service
+      .getPassportByApp(appId)
+      .then((res) => {
+        this.setState({ passport: res });
+        console.log(res);
       })
       .catch((err) => {
         console.log(err);
@@ -83,8 +96,12 @@ class PassportApplicationSingle extends Component {
       .updateDocumentStatus(docStatus)
       .then((res) => {
         console.log(res.data);
+        alert("Document status updated!");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        alert("Document status updated!");
+      });
 
     docs.forEach((doc) => {
       if (doc.documentId === docId) {
@@ -100,6 +117,44 @@ class PassportApplicationSingle extends Component {
         },
       };
     });
+  };
+
+  issuePassport = () => {
+    this.service
+      .issuePassport(this.state.application.applicationNo)
+      .then((res) => {
+        console.log(res);
+        alert("Passport issed successfully!");
+      })
+      .catch((err) => {
+        console.log(err);
+        alert(err);
+        // alert("Unable to issue passport. Please check the application form once again or try again later.")
+      });
+  };
+
+  generatePassportBtn = () => {
+    if (
+      this.state.application.applicationStatus &&
+      this.state.passport === undefined
+    ) {
+      return (
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={this.issuePassport}
+        >
+          Generate Passport
+        </Button>
+      );
+    }
+    if (this.state.passport !== undefined) {
+      return (
+        <Button variant="contained" color="primary">
+          View Passport
+        </Button>
+      );
+    }
   };
 
   render() {
@@ -259,13 +314,16 @@ class PassportApplicationSingle extends Component {
                               <TableCell>{document.documentValue}</TableCell>
                               <TableCell>
                                 <Checkbox
+                                  disabled={this.state.passport !== undefined}
                                   checked={document.isVerified}
-                                  onChange={(e) =>
-                                    this.handleSwitch(
-                                      document.documentId,
-                                      e.target.checked
-                                    )
-                                  }
+                                  onChange={(e) => {
+                                    return this.state.passport === undefined
+                                      ? this.handleSwitch(
+                                          document.documentId,
+                                          e.target.checked
+                                        )
+                                      : null;
+                                  }}
                                   inputProps={{
                                     "aria-label": "primary checkbox",
                                   }}
@@ -287,16 +345,14 @@ class PassportApplicationSingle extends Component {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            marginTop: '1rem'
+            marginTop: "1rem",
           }}
         >
-          <Button variant="contained" color="primary">
-            Generate Passport
-          </Button>
+          {this.generatePassportBtn()}
         </div>
       </BossContainer>
     );
   }
 }
 
-export default PassportApplicationSingle;
+export default withRouter(PassportApplicationSingle);

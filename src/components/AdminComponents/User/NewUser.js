@@ -15,6 +15,7 @@ import React, { Component } from "react";
 import User from "../../../Models/User";
 import AdminService from "../../../services/AdminService";
 import ApplicantService from "../../../services/ApplicantService";
+import BossCard from "../../BossCard";
 import BossContainer from "../../BossContainer";
 
 const styles = (theme) => ({
@@ -92,80 +93,82 @@ class NewUser extends Component {
     const { email, password, userRole, loading } = this.state;
     return (
       <BossContainer>
-        <h1 style={{ textAlign: "center", margin: "1rem 0" }}>New User</h1>
-        <hr />
-        {this.state.success ? (
-          <Alert severity="success">{this.state.success}</Alert>
-        ) : null}
-        {this.state.error ? (
-          <Alert severity="error">{this.state.error}</Alert>
-        ) : null}
-        <form onSubmit={this.handleSubmit}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                value={email}
-                onChange={this.handleChange}
-              />
+        <BossCard style={{ maxWidth: "600px" }}>
+          <h1 style={{ textAlign: "center", margin: "1rem 0" }}>New User</h1>
+          <hr />
+          {this.state.success ? (
+            <Alert severity="success">{this.state.success}</Alert>
+          ) : null}
+          {this.state.error ? (
+            <Alert severity="error">{this.state.error}</Alert>
+          ) : null}
+          <form onSubmit={this.handleSubmit}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  value={email}
+                  onChange={this.handleChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                  value={password}
+                  onChange={this.handleChange}
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                value={password}
+            <FormControl component="fieldset" margin="normal">
+              <FormLabel component="legend">User type</FormLabel>
+              <RadioGroup
+                aria-label="user-type"
+                name="userRole"
+                style={{ flexDirection: "row" }}
                 onChange={this.handleChange}
-              />
-            </Grid>
-          </Grid>
-          <FormControl component="fieldset" margin="normal">
-            <FormLabel component="legend">User type</FormLabel>
-            <RadioGroup
-              aria-label="user-type"
-              name="userRole"
-              style={{ flexDirection: "row" }}
-              onChange={this.handleChange}
-              value={userRole}
+                value={userRole}
+              >
+                <FormControlLabel
+                  value="applicant"
+                  control={<Radio required />}
+                  label="Applicant"
+                />
+                <FormControlLabel
+                  value="admin"
+                  control={<Radio required />}
+                  label="Admin"
+                />
+              </RadioGroup>
+            </FormControl>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={this.classes.submit}
+              size="large"
             >
-              <FormControlLabel
-                value="applicant"
-                control={<Radio required />}
-                label="Applicant"
-              />
-              <FormControlLabel
-                value="admin"
-                control={<Radio required />}
-                label="Admin"
-              />
-            </RadioGroup>
-          </FormControl>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={this.classes.submit}
-            size="large"
-          >
-            {loading ? (
-              <CircularProgress style={{ color: "#fff" }} />
-            ) : (
-              "Add User"
-            )}
-          </Button>
-        </form>
+              {loading ? (
+                <CircularProgress style={{ color: "#fff" }} />
+              ) : (
+                "Add User"
+              )}
+            </Button>
+          </form>
+        </BossCard>
       </BossContainer>
     );
   }

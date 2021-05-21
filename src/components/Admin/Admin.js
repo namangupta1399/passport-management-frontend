@@ -232,18 +232,6 @@ export default function Admin() {
 
         </Container>
       </main>
-      {/* Footer */}
-      
-      <footer className={classes.footer}>
-        <Typography variant="h6" align="center" gutterBottom>
-          Developer Contact
-        </Typography>
-        <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-          Site maintained by Capgemini
-        </Typography>
-        <Copyright />
-      </footer>
-      {/* End footer */}
       </BossContainer>
   );
 }
