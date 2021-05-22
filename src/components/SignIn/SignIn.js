@@ -11,10 +11,17 @@ import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import BossContainer from "../BossContainer";
 import { Link } from "react-router-dom";
-import { FormControl, FormLabel, Radio, RadioGroup } from "@material-ui/core";
+import {
+  CircularProgress,
+  FormControl,
+  FormLabel,
+  Radio,
+  RadioGroup,
+} from "@material-ui/core";
 import LoginService from "../../services/LoginService";
 import User from "../../Models/User";
 import BossCard from "../BossCard";
+import Alert from "@material-ui/lab/Alert";
 
 const styles = (theme) => ({
   avatar: {
@@ -38,6 +45,8 @@ class SignIn extends Component {
     password: "",
     userRole: "",
     loading: false,
+    error: undefined,
+    redirect: false,
   };
 
   state = { ...this.initialState };
@@ -63,13 +72,8 @@ class SignIn extends Component {
           console.log("RES:", res);
           this.setState({
             ...this.initialState,
+            redirect: true,
           });
-          if(res.userRole === "applicant") {
-            this.props.history.push("/applicant");
-          }
-          if(res.userRole === "admin") {
-            this.props.history.push("/admin");
-          }
         })
         .catch((err) => {
           const error = err.message.substring(
@@ -77,18 +81,35 @@ class SignIn extends Component {
             err.message.indexOf("]")
           );
           console.log("ERR", error);
-          this.setState({ loading: false });
+          this.setState({ error, loading: false });
         });
     }, 2000);
   };
 
+  performRedirect = () => {
+    const { isLoggedIn } = this.loginService;
+    const user = isLoggedIn();
+    if (this.state.redirect && user) {
+      if (user.userRole === "applicant") {
+        this.props.history.push("/applicant");
+      }
+      if (user.userRole === "admin") {
+        this.props.history.push("/admin");
+      }
+    }
+    if(user) {
+      this.props.history.push("/");
+    }
+  };
+
   render() {
     let classes = this.props.classes;
-    const { email, password, userRole } = this.state;
+    const { email, password, userRole, loading, error } = this.state;
     return (
       <BossContainer>
         <CssBaseline />
         <BossCard style={{ maxWidth: "500px" }} flex>
+          {error ? <Alert severity="error">{error}</Alert> : null}
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
@@ -169,7 +190,11 @@ class SignIn extends Component {
               color="primary"
               className={classes.submit}
             >
-              Sign In
+              {loading ? (
+                <CircularProgress style={{ color: "#fff" }} />
+              ) : (
+                "Sign In"
+              )}
             </Button>
             <div className="text-center">
               <Link to="/register" variant="body2">
@@ -178,6 +203,7 @@ class SignIn extends Component {
             </div>
           </form>
         </BossCard>
+        {this.performRedirect()}
       </BossContainer>
     );
   }

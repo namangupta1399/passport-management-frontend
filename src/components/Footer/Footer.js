@@ -19,6 +19,7 @@ const Footer = () => {
     display: "flex",
     alignItems: "baseline",
     justifyContent: "space-evenly",
+    paddingTop: '2rem'
   };
   return (
     <>

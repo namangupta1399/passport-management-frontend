@@ -14,6 +14,7 @@ import { CircularProgress } from "@material-ui/core";
 import ApplicantService from "../../services/ApplicantService";
 import Alert from "@material-ui/lab/Alert";
 import BossCard from "../BossCard";
+import LoginService from "../../services/LoginService";
 
 const styles = (theme) => ({
   avatar: {
@@ -33,6 +34,7 @@ class SignUp extends Component {
   classes = this.props.classes;
 
   appService = new ApplicantService();
+  loginService = new LoginService();
 
   initialState = {
     email: "",
@@ -78,6 +80,14 @@ class SignUp extends Component {
           this.setState({ success: "", error: error, loading: false });
         });
     }, 2000);
+  };
+
+  performRedirect = () => {
+    const { isLoggedIn } = this.loginService;
+    const user = isLoggedIn();
+    if (user) {
+      this.props.history.push("/");
+    }
   };
 
   render() {
@@ -153,6 +163,7 @@ class SignUp extends Component {
             </div>
           </form>
         </BossCard>
+        {this.performRedirect()}
       </BossContainer>
     );
   }
