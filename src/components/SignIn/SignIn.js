@@ -96,6 +96,7 @@ class SignIn extends Component {
       if (user.userRole === "admin") {
         this.props.history.push("/admin");
       }
+      return;
     }
     if(user) {
       this.props.history.push("/");

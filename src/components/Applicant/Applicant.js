@@ -23,6 +23,13 @@ import FileCopyIcon from "@material-ui/icons/FileCopy";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import HelpIcon from "@material-ui/icons/Help";
+import BossCard from "../BossCard";
+import Dashboard from "../Dashboard";
+import UserProfile from "../UserProfile/UserProfile";
+import NewPassportApplication from "../ApplicantComponents/PassportApplication/NewPassportApplication";
+import PassportApplication from "../ApplicantComponents/PassportApplication";
+import EditPassportApplication from "../ApplicantComponents/PassportApplication/EditPassportApplication";
+import Helpdesk from "../ApplicantComponents/Helpdesk";
 
 const drawerWidth = 240;
 
@@ -78,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
   },
   drawer: {
     width: drawerWidth,
-    flexShrink: 0
+    flexShrink: 0,
   },
   drawerPaper: {
     width: drawerWidth,
@@ -93,110 +100,122 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 // const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-const iconArrayProfile = [
+const iconArray = [
   <AccountCircleIcon />,
   <CreateNewFolderIcon />,
-  <FolderSharedIcon />,
+  <FileCopyIcon />,
+  <EditIcon />,
+  <DeleteIcon />,
 ];
-const iconArrayApp = [<FileCopyIcon />, <EditIcon />, <DeleteIcon />];
+
+const menuArr = [
+  "My profile",
+  "Apply for new passport",
+  "View my application",
+  "Edit my application",
+  "Helpdesk",
+];
+
+const componentList = [<UserProfile />, <NewPassportApplication />, <PassportApplication />, <EditPassportApplication />, <Helpdesk />];
+
+{
+  /* <Drawer
+            className={classes.drawer}
+            variant="persistent"
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+            anchor="left"
+          >
+            <div className={classes.toolbar} />
+            <Divider />
+            <List>
+              {[
+                "My profile",
+                "Apply for new passport",
+                "Apply for renewal",
+              ].map((text, index) => (
+                <ListItem button key={text}>
+                  <ListItemIcon>{iconArrayProfile[index]}</ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItem>
+              ))}
+            </List>
+            <Divider />
+            <List>
+              {[
+                "View my application",
+                "Edit my application",
+                "Delete my application",
+              ].map((text, index) => (
+                <ListItem button key={text}>
+                  <ListItemIcon>{iconArrayApp[index]}</ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItem>
+              ))}
+            </List>
+            <Divider />
+            <List>
+              {["View my helpdesk queries"].map((text, index) => (
+                <ListItem button key={text}>
+                  <ListItemIcon>
+                    <HelpIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItem>
+              ))}
+            </List>
+          </Drawer> */
+}
 
 export default function Applicant() {
   const classes = useStyles();
 
   return (
-    <BossContainer>
+    <Dashboard icons={iconArray} menuList={menuArr} components={componentList}>
+      <BossContainer></BossContainer>
       <main>
-        {/* Hero unit */}
-        <div className={classes.heroContent}>
-          <Container maxWidth="sm">
-            <Typography
-              component="h1"
-              variant="h2"
-              align="center"
-              color="textPrimary"
-              gutterBottom
-            >
-              Applicant Dashboard
-            </Typography>
-            <Typography
-              variant="h5"
-              align="center"
-              color="textSecondary"
-              paragraph
-            >
-              This is the applicant dashboard to navigate through applicant
-              operations.
-            </Typography>
+        <BossCard style={{ padding: "4rem 0" }}>
+          <Typography
+            component="h1"
+            variant="h2"
+            align="center"
+            color="textPrimary"
+            gutterBottom
+          >
+            Applicant Dashboard
+          </Typography>
+          <Typography
+            variant="h5"
+            align="center"
+            color="textSecondary"
+            paragraph
+          >
+            This is the applicant dashboard to navigate through applicant
+            operations.
+          </Typography>
 
-            <Drawer
-              className={classes.drawer}
-              variant="permanent"
-              classes={{
-                paper: classes.drawerPaper,
-              }}
-              anchor="left"
-            >
-              <div className={classes.toolbar} />
-              <Divider />
-              <List>
-                {[
-                  "My profile",
-                  "Apply for new passport",
-                  "Apply for renewal",
-                ].map((text, index) => (
-                  <ListItem button key={text}>
-                    <ListItemIcon>{iconArrayProfile[index]}</ListItemIcon>
-                    <ListItemText primary={text} />
-                  </ListItem>
-                ))}
-              </List>
-              <Divider />
-              <List>
-                {[
-                  "View my application",
-                  "Edit my application",
-                  "Delete my application",
-                ].map((text, index) => (
-                  <ListItem button key={text}>
-                    <ListItemIcon>{iconArrayApp[index]}</ListItemIcon>
-                    <ListItemText primary={text} />
-                  </ListItem>
-                ))}
-              </List>
-              <Divider />
-              <List>
-                {["View my helpdesk queries"].map((text, index) => (
-                  <ListItem button key={text}>
-                    <ListItemIcon>
-                      <HelpIcon />
-                    </ListItemIcon>
-                    <ListItemText primary={text} />
-                  </ListItem>
-                ))}
-              </List>
-            </Drawer>
-
-            <div className={classes.heroButtons}>
-              <Grid container spacing={2} justify="center">
-                <Grid item>
-                  <Button
-                    component={Link}
-                    to="/user/profile"
-                    variant="contained"
-                    color="primary"
-                  >
-                    View user profile
-                  </Button>
-                </Grid>
-                <Grid item>
-                  <Button variant="contained" color="secondary">
-                    Edit user profile
-                  </Button>
-                </Grid>
+          <div className={classes.heroButtons}>
+            <Grid container spacing={2} justify="center">
+              <Grid item>
+                <Button
+                  component={Link}
+                  to="/user/profile"
+                  variant="contained"
+                  color="primary"
+                >
+                  View profile
+                </Button>
               </Grid>
-            </div>
-          </Container>
-        </div>
+              <Grid item>
+                <Button variant="contained" color="secondary">
+                  Edit profile
+                </Button>
+              </Grid>
+            </Grid>
+          </div>
+        </BossCard>
+
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={8}>
@@ -293,6 +312,6 @@ export default function Applicant() {
           </Grid>
         </Container>
       </main>
-    </BossContainer>
+    </Dashboard>
   );
 }

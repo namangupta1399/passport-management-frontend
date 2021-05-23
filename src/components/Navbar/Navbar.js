@@ -1,5 +1,4 @@
 import React from "react";
-import Logo from "./Logo.jpg";
 import {
   AppBar,
   Button,
@@ -12,6 +11,7 @@ import { Link, withRouter } from "react-router-dom";
 import backgroundImage from "../../assets/images/header.webp";
 import logo from "../../assets/images/hop_logo_new.png";
 import LoginService from "../../services/LoginService";
+import "./Navbar.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,13 +31,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Navbar = (props) => {
+const currentTab = (history, path) => {
+  if (history.location.pathname === path) {
+    return "active";
+  }
+};
+
+const Navbar = ({ history }) => {
   const classes = useStyles();
   const loginService = new LoginService();
   const { isLoggedIn, signout } = loginService;
-
   return (
-    <div className={classes.root}>
+    <div id="navbar" className={classes.root}>
       <AppBar position="static" className={classes.header}>
         <Toolbar style={{ boxShadow: "0 2px 2px 0px #fff", zIndex: 9 }}>
           <img src={logo} alt="Logo" style={{ width: "17rem" }} />
@@ -45,71 +50,75 @@ const Navbar = (props) => {
             <Typography variant="h6" className={classes.title}>
               {/* House of Passports */}
             </Typography>
-            <Button
-              className={classes.btn}
-              to="/"
-              component={Link}
-              color="inherit"
-            >
+            {isLoggedIn() && (
+              <Link
+                className={`nav-link ${currentTab(
+                  history,
+                  `${
+                    isLoggedIn().userRole === "applicant"
+                      ? "/applicant"
+                      : "/admin"
+                  }`
+                )}`}
+                to={`${
+                  isLoggedIn().userRole === "applicant"
+                    ? "/applicant"
+                    : "/admin"
+                }`}
+              >
+                Dashboard
+              </Link>
+            )}
+            <Link className={`nav-link ${currentTab(history, "/")}`} to="/">
               Home
-            </Button>
-            <Button
-              className={classes.btn}
+            </Link>
+            <Link
+              className={`nav-link ${currentTab(history, "/about")}`}
               to="/about"
-              component={Link}
-              color="inherit"
             >
               About Us
-            </Button>
+            </Link>
             {!isLoggedIn() && (
               <>
-                <Button
-                  className={classes.btn}
+                <Link
+                  className={`nav-link ${currentTab(history, "/signin")}`}
                   to="/signin"
-                  component={Link}
-                  variant="contained"
                 >
                   Login
-                </Button>
-                <Button
-                  className={classes.btn}
-                  component={Link}
+                </Link>
+                <Link
+                  className={`nav-link ${currentTab(history, "/signup")}`}
                   to="/signup"
-                  variant="contained"
                 >
                   REGISTER
-                </Button>
+                </Link>
               </>
             )}
             {isLoggedIn() && (
-              <Button
-                className={classes.btn}
+              <Link
+                className={`nav-link`}
                 variant="contained"
                 onClick={() => {
                   signout(() => {
-                    props.history.push("/");
+                    history.push("/");
                   });
                 }}
               >
                 Signout
-              </Button>
+              </Link>
             )}
-            <Button
-              className={classes.btn}
+            <Link
+              className={`nav-link ${currentTab(history, "/contact")}`}
               to="/contact"
-              component={Link}
-              color="inherit"
             >
               Contact Us
-            </Button>
-            <Button
-              className={classes.btn}
+            </Link>
+            <Link
+              className={`nav-link ${currentTab(history, "/sitemap")}`}
               to="/sitemap"
-              component={Link}
-              color="inherit"
             >
               Sitemap
-            </Button>
+            </Link>
           </Container>
         </Toolbar>
       </AppBar>

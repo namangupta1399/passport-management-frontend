@@ -1,0 +1,27 @@
+#navbar .nav-link:link, #navbar .nav-link:visited{
+    color: #fff;
+    margin: 0 10px;
+    text-transform: uppercase;
+    position: relative;
+}
+
+#navbar .nav-link.active {
+    background-color: rgba(0,0,0,0.8);
+}
+
+#navbar .nav-link::before {
+    content: '';
+    width: 0;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+    position: absolute;
+    left: 0;
+    top: 0;
+    transition: width .4s;
+    z-index: -1;
+    backface-visibility: hidden;
+}
+
+#navbar .nav-link:hover::before {
+    width: 100%;
+}

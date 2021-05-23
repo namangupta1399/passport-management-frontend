@@ -106,8 +106,8 @@ class PassportApplication extends Component {
   render() {
     return (
       <BossContainer>
-        <h1 style={{ textAlign: "center" }}>Passport Applications</h1>
         <BossCard>
+        <h1 style={{ textAlign: "center" }}>Passport Applications</h1>
           <TableContainer>
             <Table aria-label="simple table">
               <TableHead>
