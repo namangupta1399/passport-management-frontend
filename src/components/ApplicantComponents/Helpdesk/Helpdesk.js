@@ -15,12 +15,15 @@ import CheckCircleOutlineRoundedIcon from "@material-ui/icons/CheckCircleOutline
 import CancelRoundedIcon from "@material-ui/icons/CancelRounded";
 import { Link } from "react-router-dom";
 import BossCard from "../../BossCard";
+import LoginService from "../../../services/LoginService";
+import ApplicantDashboard from "../../Applicant/ApplicantDashboard";
 
 class Helpdesk extends Component {
   constructor(props) {
     super(props);
 
     this.appService = new ApplicantService();
+    this.loginService = new LoginService();
 
     this.state = {
       queries: [],
@@ -28,8 +31,9 @@ class Helpdesk extends Component {
   }
 
   componentDidMount() {
+    const user = this.loginService.isLoggedIn();
     this.appService
-      .getAllHelpdeskQueries(1)
+      .getAllHelpdeskQueries(user.id)
       .then((res) => {
         this.setState({ queries: [...res] });
       })
@@ -58,7 +62,7 @@ class Helpdesk extends Component {
     }
     return (
       <TableRow>
-        <TableCell colSpan="3" align="center">
+        <TableCell colSpan="5" align="center">
           <h4>No records found!</h4>
         </TableCell>
       </TableRow>
@@ -67,8 +71,9 @@ class Helpdesk extends Component {
 
   render() {
     return (
-      <BossContainer>
-        <BossCard style={{ maxWidth: "1100px" }}>
+      <ApplicantDashboard>
+        <div className="d-flex flex-column w-100">
+        <BossCard style={{ width: "100%" }}>
           <h1 style={{ textAlign: "center" }}>Helpdesk Queries</h1>
           <TableContainer>
             <Table aria-label="simple table">
@@ -85,7 +90,7 @@ class Helpdesk extends Component {
             </Table>
           </TableContainer>
         </BossCard>
-        <div
+        {/* <div
           style={{
             display: "flex",
             alignItems: "center",
@@ -101,8 +106,9 @@ class Helpdesk extends Component {
           >
             HAVE A QUERY ?
           </Button>
-        </div>
-      </BossContainer>
+        </div> */}
+      </div>
+      </ApplicantDashboard>
     );
   }
 }

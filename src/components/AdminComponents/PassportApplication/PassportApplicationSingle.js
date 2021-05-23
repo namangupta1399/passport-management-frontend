@@ -22,6 +22,7 @@ import CheckCircleOutlineRoundedIcon from "@material-ui/icons/CheckCircleOutline
 import CancelRoundedIcon from "@material-ui/icons/CancelRounded";
 import DocumentStatus from "../../../Models/DocumentStatus";
 import { withRouter } from "react-router";
+import AdminDashboard from "../../Admin/AdminDashboard";
 
 class PassportApplicationSingle extends Component {
   service = new AdminService();
@@ -176,7 +177,7 @@ class PassportApplicationSingle extends Component {
     const { houseNo, street, state, district, pinCode, mobileNo } = address;
     const { expanded } = this.state;
     return (
-      <BossContainer>
+      <AdminDashboard>
         <Paper elevation={3} style={{ padding: "1rem" }}>
           <h1>
             Passport Application - {firstName} {lastName}
@@ -350,7 +351,7 @@ class PassportApplicationSingle extends Component {
         >
           {this.generatePassportBtn()}
         </div>
-      </BossContainer>
+      </AdminDashboard>
     );
   }
 }

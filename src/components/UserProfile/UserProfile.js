@@ -17,6 +17,8 @@ import User from "../../Models/User";
 import ApplicantService from "../../services/ApplicantService";
 import BossCard from "../BossCard";
 import { withRouter } from "react-router";
+import ApplicantDashboard from "../Applicant/ApplicantDashboard";
+import AdminDashboard from "../Admin/AdminDashboard";
 
 const styles = (theme) => ({
   paper: {
@@ -56,7 +58,7 @@ class UserProfile extends Component {
 
   componentDidMount() {
     const user = this.loginService.isLoggedIn();
-    if(user === null) {
+    if (user === null) {
       this.props.history.push("/signin");
     }
 
@@ -106,12 +108,12 @@ class UserProfile extends Component {
       });
   };
 
-  render() {
+  renderProfile = () => {
     const { email, password, loading } = this.state;
     return (
-      <BossContainer component="main" maxWidth="xs">
+      <>
         <CssBaseline />
-        <BossCard style={{maxWidth: '600px'}} flex>
+        <BossCard style={{ maxWidth: "600px" }} flex>
           {this.state.success ? (
             <Alert severity="success">{this.state.success}</Alert>
           ) : null}
@@ -169,13 +171,21 @@ class UserProfile extends Component {
               {loading ? (
                 <CircularProgress style={{ color: "#fff" }} />
               ) : (
-                "Update details"
+                "Update"
               )}
             </Button>
           </form>
         </BossCard>
-      </BossContainer>
+      </>
     );
+  };
+
+  render() {
+    const user = this.loginService.isLoggedIn();
+    if (user.userRole === "applicant") {
+      return <ApplicantDashboard>{this.renderProfile()}</ApplicantDashboard>;
+    }
+    return <AdminDashboard>{this.renderProfile()}</AdminDashboard>;
   }
 }
 

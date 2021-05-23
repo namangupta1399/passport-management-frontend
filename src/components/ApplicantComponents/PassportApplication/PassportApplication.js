@@ -24,6 +24,8 @@ import DocumentStatus from "../../../Models/DocumentStatus";
 import { Redirect, withRouter } from "react-router";
 import LoginService from "../../../services/LoginService";
 import ApplicantService from "../../../services/ApplicantService";
+import BossCard from "../../BossCard";
+import ApplicantDashboard from "../../Applicant/ApplicantDashboard";
 
 class PassportApplication extends Component {
   applicantService = new ApplicantService();
@@ -61,21 +63,6 @@ class PassportApplication extends Component {
     expanded: "panel1",
   };
 
-  componentDidMount() {
-    const userId = this.loginservice.getCurrentUser().id;
-
-    this.applicantService
-      .getPassportApplicationByUser(userId)
-      .then((res) => {
-        console.log(res);
-        this.setState({ application: res });
-      })
-      .catch((err) => {
-        console.log(err);
-        this.props.history.push("/applicant/passportApplication/new");
-      });
-  }
-
   handleChange = (value) => {
     this.setState({ expanded: value });
   };
@@ -108,6 +95,7 @@ class PassportApplication extends Component {
   };
 
   renderApplication = () => {
+    const { app } = this.props;
     const {
       firstName,
       middleName,
@@ -122,11 +110,11 @@ class PassportApplication extends Component {
       address,
       documents,
       applicationStatus,
-    } = this.state.application;
+    } = app;
     const { houseNo, street, state, district, pinCode, mobileNo } = address;
     const { expanded } = this.state;
     return (
-      <BossContainer>
+      <div className="d-flex flex-column">
         <Paper elevation={3} style={{ padding: "1rem" }}>
           <h1>
             Passport Application - {firstName} {lastName}
@@ -294,12 +282,22 @@ class PassportApplication extends Component {
             View Passport
           </Button>
         </div>
-      </BossContainer>
+      </div>
     );
   };
 
   render() {
-    return this.renderApplication();
+    return (
+      <ApplicantDashboard>
+        {this.props.app ? (
+          this.renderApplication()
+        ) : (
+          <BossCard style={{ width: "100%" }}>
+            <h1 className="text-center py-5 my-5">No application found!</h1>
+          </BossCard>
+        )}
+      </ApplicantDashboard>
+    );
   }
 }
 

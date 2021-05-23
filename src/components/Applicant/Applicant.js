@@ -1,52 +1,23 @@
-import React from "react";
-import BossContainer from "../BossContainer";
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import Link from "@material-ui/core/Link";
-import Drawer from "@material-ui/core/Drawer";
-import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import CreateNewFolderIcon from "@material-ui/icons/CreateNewFolder";
-import FolderSharedIcon from "@material-ui/icons/FolderShared";
-import FileCopyIcon from "@material-ui/icons/FileCopy";
-import EditIcon from "@material-ui/icons/Edit";
-import DeleteIcon from "@material-ui/icons/Delete";
-import HelpIcon from "@material-ui/icons/Help";
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Container,
+  Grid,
+  Typography,
+  withStyles,
+} from "@material-ui/core";
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import LoginService from "../../services/LoginService";
 import BossCard from "../BossCard";
-import Dashboard from "../Dashboard";
-import UserProfile from "../UserProfile/UserProfile";
-import NewPassportApplication from "../ApplicantComponents/PassportApplication/NewPassportApplication";
-import PassportApplication from "../ApplicantComponents/PassportApplication";
-import EditPassportApplication from "../ApplicantComponents/PassportApplication/EditPassportApplication";
-import Helpdesk from "../ApplicantComponents/Helpdesk";
+import ApplicantDashboard from "./ApplicantDashboard";
 
 const drawerWidth = 240;
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
-const useStyles = makeStyles((theme) => ({
+const styles = (theme) => ({
   icon: {
     marginRight: theme.spacing(2),
   },
@@ -97,85 +68,30 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing(3),
   },
-}));
+});
 
-// const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-const iconArray = [
-  <AccountCircleIcon />,
-  <CreateNewFolderIcon />,
-  <FileCopyIcon />,
-  <EditIcon />,
-  <DeleteIcon />,
-];
+class Applicant extends Component {
+  classes = withStyles();
+  loginService = new LoginService();
 
-const menuArr = [
-  "My profile",
-  "Apply for new passport",
-  "View my application",
-  "Edit my application",
-  "Helpdesk",
-];
-
-const componentList = [<UserProfile />, <NewPassportApplication />, <PassportApplication />, <EditPassportApplication />, <Helpdesk />];
-
-{
-  /* <Drawer
-            className={classes.drawer}
-            variant="persistent"
-            classes={{
-              paper: classes.drawerPaper,
+  render() {
+    const classes = this.props.classes;
+    const user = this.loginService.isLoggedIn();
+    const username = user.email.split("@")[0];
+    return (
+      <ApplicantDashboard>
+        <BossCard style={{ padding: "4rem 0", width: "100%" }}>
+          <h4
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              margin: "1rem 0 0 1rem",
+              fontStyle: "italic",
             }}
-            anchor="left"
           >
-            <div className={classes.toolbar} />
-            <Divider />
-            <List>
-              {[
-                "My profile",
-                "Apply for new passport",
-                "Apply for renewal",
-              ].map((text, index) => (
-                <ListItem button key={text}>
-                  <ListItemIcon>{iconArrayProfile[index]}</ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItem>
-              ))}
-            </List>
-            <Divider />
-            <List>
-              {[
-                "View my application",
-                "Edit my application",
-                "Delete my application",
-              ].map((text, index) => (
-                <ListItem button key={text}>
-                  <ListItemIcon>{iconArrayApp[index]}</ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItem>
-              ))}
-            </List>
-            <Divider />
-            <List>
-              {["View my helpdesk queries"].map((text, index) => (
-                <ListItem button key={text}>
-                  <ListItemIcon>
-                    <HelpIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItem>
-              ))}
-            </List>
-          </Drawer> */
-}
-
-export default function Applicant() {
-  const classes = useStyles();
-
-  return (
-    <Dashboard icons={iconArray} menuList={menuArr} components={componentList}>
-      <BossContainer></BossContainer>
-      <main>
-        <BossCard style={{ padding: "4rem 0" }}>
+            Welcome {username}
+          </h4>
           <Typography
             component="h1"
             variant="h2"
@@ -194,124 +110,10 @@ export default function Applicant() {
             This is the applicant dashboard to navigate through applicant
             operations.
           </Typography>
-
-          <div className={classes.heroButtons}>
-            <Grid container spacing={2} justify="center">
-              <Grid item>
-                <Button
-                  component={Link}
-                  to="/user/profile"
-                  variant="contained"
-                  color="primary"
-                >
-                  View profile
-                </Button>
-              </Grid>
-              <Grid item>
-                <Button variant="contained" color="secondary">
-                  Edit profile
-                </Button>
-              </Grid>
-            </Grid>
-          </div>
         </BossCard>
-
-        <Container className={classes.cardGrid} maxWidth="md">
-          {/* End hero unit */}
-          <Grid container spacing={8}>
-            <Grid item xs={6}>
-              <Card className={classes.card}>
-                <CardMedia
-                  className={classes.cardMedia}
-                  image="https://source.unsplash.com/random"
-                  title="Image title"
-                />
-                <CardContent className={classes.cardContent}>
-                  <Typography gutterBottom variant="h5" component="h2">
-                    Apply for new passport.
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Button size="small" color="primary">
-                    Create new
-                  </Button>
-                </CardActions>
-              </Card>
-            </Grid>
-            <Grid item xs={6}>
-              <Card className={classes.card}>
-                <CardMedia
-                  className={classes.cardMedia}
-                  image="https://source.unsplash.com/random"
-                  title="Image title"
-                />
-                <CardContent className={classes.cardContent}>
-                  <Typography gutterBottom variant="h5" component="h2">
-                    Apply for renewal of old passport.
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Button size="small" color="primary">
-                    Renew passport
-                  </Button>
-                </CardActions>
-              </Card>
-            </Grid>
-
-            <Grid item xs={6}>
-              <Card className={classes.card}>
-                <CardMedia
-                  className={classes.cardMedia}
-                  image="https://source.unsplash.com/random"
-                  title="Image title"
-                />
-                <CardContent className={classes.cardContent}>
-                  <Typography gutterBottom variant="h5" component="h2">
-                    User Passport Application.
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Button size="small" color="primary">
-                    View
-                  </Button>
-                  <Button size="small" color="primary">
-                    Edit
-                  </Button>
-                  <Button size="small" color="primary">
-                    Delete
-                  </Button>
-                  <Button size="small" color="primary">
-                    View application status
-                  </Button>
-                </CardActions>
-              </Card>
-            </Grid>
-
-            <Grid item xs={6}>
-              <Card className={classes.card}>
-                <CardMedia
-                  className={classes.cardMedia}
-                  image="https://source.unsplash.com/random"
-                  title="Image title"
-                />
-                <CardContent className={classes.cardContent}>
-                  <Typography gutterBottom variant="h5" component="h2">
-                    FAQs
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Button size="small" color="primary">
-                    New query
-                  </Button>
-                  <Button size="small" color="primary">
-                    View query
-                  </Button>
-                </CardActions>
-              </Card>
-            </Grid>
-          </Grid>
-        </Container>
-      </main>
-    </Dashboard>
-  );
+      </ApplicantDashboard>
+    );
+  }
 }
+
+export default withStyles(styles)(Applicant);

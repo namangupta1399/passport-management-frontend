@@ -9,7 +9,7 @@ import {
   withStyles,
 } from "@material-ui/core";
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import ApplicantService from "../../../services/ApplicantService";
 import PersonalInformation from "./PersonalInformation";
 import Address from "./Address";
@@ -21,6 +21,7 @@ import BossContainer from "../../BossContainer";
 import Alert from "@material-ui/lab/Alert";
 import LoginService from "../../../services/LoginService";
 import BossCard from "../../BossCard";
+import ApplicantDashboard from "../../Applicant/ApplicantDashboard";
 
 const styles = (theme) => ({
   appBar: {
@@ -106,54 +107,55 @@ class EditPassportApplication extends Component {
   state = { ...this.initialState };
 
   componentDidMount() {
-    const currentUser = this.loginService.getCurrentUser();
-    this.appService.getPassportApplicationByUser(currentUser.id)
-    .then((res) => {
-      const {
-        firstName,
-        middleName,
-        lastName,
-        gender,
-        dateOfBirth,
-        placeOfBirth,
-        maritalStatus,
-        isIndian,
-        employmentType,
-        educationalQualification,
-        address,
-        documents,
-        applicationStatus,
-        user,
-      } = res;
-      const dob = dateOfBirth.substring(0, 10); // Updated format
-      console.log(dob);
-      this.setState({
-        application: { ...res },
-        personalInfo: {
+    const currentUser = this.loginService.isLoggedIn();
+    this.appService
+      .getPassportApplicationByUser(currentUser.id)
+      .then((res) => {
+        const {
           firstName,
           middleName,
           lastName,
           gender,
-          dateOfBirth: dob,
+          dateOfBirth,
           placeOfBirth,
           maritalStatus,
           isIndian,
           employmentType,
           educationalQualification,
-        },
-        address,
-        documents: {
-          aadhaar: documents[0].documentValue,
-          pan: documents[1].documentValue,
-        },
-        applicationStatus,
-        user,
+          address,
+          documents,
+          applicationStatus,
+          user,
+        } = res;
+        const dob = dateOfBirth.substring(0, 10); // Updated format
+        console.log(dob);
+        this.setState({
+          application: { ...res },
+          personalInfo: {
+            firstName,
+            middleName,
+            lastName,
+            gender,
+            dateOfBirth: dob,
+            placeOfBirth,
+            maritalStatus,
+            isIndian,
+            employmentType,
+            educationalQualification,
+          },
+          address,
+          documents: {
+            aadhaar: documents[0].documentValue,
+            pan: documents[1].documentValue,
+          },
+          applicationStatus,
+          user,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        this.props.history.push("/applicant");
       });
-    })
-    .catch(err => {
-      console.log(err);
-      this.props.history.push("/applicant/passportApplication/new");
-    })
   }
 
   getStepContent = (step) => {
@@ -231,7 +233,7 @@ class EditPassportApplication extends Component {
     e.preventDefault();
     // console.log(this.state);
 
-    const user = this.loginService.getCurrentUser();
+    const user = this.loginService.isLoggedIn();
 
     const { application } = this.state;
     const {
@@ -298,8 +300,18 @@ class EditPassportApplication extends Component {
     const classes = this.props.classes;
     let activeStep = this.state.activeStep;
 
+    if (!this.props.app) {
+      return (
+        <ApplicantDashboard>
+          <BossCard style={{ width: "100%" }}>
+            <h1 className="text-center py-5 my-5">No application found!</h1>
+          </BossCard>
+        </ApplicantDashboard>
+      );
+    }
+
     return (
-      <BossContainer>
+      <ApplicantDashboard>
         <CssBaseline />
         <form
           onSubmit={
@@ -310,12 +322,12 @@ class EditPassportApplication extends Component {
         >
           <main className={classes.layout}>
             <BossCard>
-            {this.state.success ? (
-          <Alert severity="success">{this.state.success}</Alert>
-        ) : null}
-        {this.state.error ? (
-          <Alert severity="error">{this.state.error}</Alert>
-        ) : null}
+              {this.state.success ? (
+                <Alert severity="success">{this.state.success}</Alert>
+              ) : null}
+              {this.state.error ? (
+                <Alert severity="error">{this.state.error}</Alert>
+              ) : null}
               <Typography component="h1" variant="h4" align="center">
                 Edit Passport Application
               </Typography>
@@ -348,9 +360,9 @@ class EditPassportApplication extends Component {
           </main>
         </form>
         <h1>{this.state.loading ? "Loading..." : null}</h1>
-      </BossContainer>
+      </ApplicantDashboard>
     );
   }
 }
 
-export default withStyles(styles)(EditPassportApplication);
+export default withRouter(withStyles(styles)(EditPassportApplication));

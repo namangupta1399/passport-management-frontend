@@ -17,6 +17,7 @@ import CancelRoundedIcon from "@material-ui/icons/CancelRounded";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import { Link } from "react-router-dom";
 import BossCard from "../../BossCard";
+import AdminDashboard from "../../Admin/AdminDashboard";
 
 class PassportApplication extends Component {
   constructor(props) {
@@ -105,7 +106,7 @@ class PassportApplication extends Component {
 
   render() {
     return (
-      <BossContainer>
+      <AdminDashboard>
         <BossCard>
         <h1 style={{ textAlign: "center" }}>Passport Applications</h1>
           <TableContainer>
@@ -125,7 +126,7 @@ class PassportApplication extends Component {
             </Table>
           </TableContainer>
         </BossCard>
-      </BossContainer>
+      </AdminDashboard>
     );
   }
 }

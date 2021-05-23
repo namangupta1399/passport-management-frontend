@@ -1,44 +1,23 @@
-import React from 'react';
-import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-// import Link from '@material-ui/core/Link';
-import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import FileCopyIcon from '@material-ui/icons/FileCopy';
-import HelpIcon from '@material-ui/icons/Help';
-import BossContainer from '../BossContainer';
-import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
-import NoteIcon from '@material-ui/icons/Note';
-import { Link } from 'react-router-dom';
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Container,
+  Grid,
+  Typography,
+  withStyles,
+} from "@material-ui/core";
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import LoginService from "../../services/LoginService";
+import BossCard from "../BossCard";
+import AdminDashboard from "./AdminDashboard";
 
 const drawerWidth = 240;
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
-const useStyles = makeStyles((theme) => ({
+const styles = (theme) => ({
   icon: {
     marginRight: theme.spacing(2),
   },
@@ -54,12 +33,12 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(8),
   },
   card: {
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
   },
   cardMedia: {
-    paddingTop: '56.25%', // 16:9
+    paddingTop: "56.25%", // 16:9
   },
   cardContent: {
     flexGrow: 1,
@@ -69,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(6),
   },
   root: {
-    display: 'flex',
+    display: "flex",
   },
   appBar: {
     width: `calc(100% - ${drawerWidth}px)`,
@@ -89,149 +68,51 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing(3),
   },
-}));
+});
 
-// const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-const iconArray = [<AccountCircleIcon/>, <SupervisorAccountIcon/>, <FileCopyIcon/>, <NoteIcon/>, <HelpIcon/>];
+class Admin extends Component {
+  classes = withStyles();
+  loginService = new LoginService();
 
-export default function Admin() {
-  const classes = useStyles();
-
-  return (
-    <BossContainer>
-      <main>
-        {/* Hero unit */}
-        <div className={classes.heroContent}>
-          <Container maxWidth="sm">
-            <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+  render() {
+    const classes = this.props.classes;
+    const user = this.loginService.isLoggedIn();
+    const username = user.email.split("@")[0];
+    return (
+      <AdminDashboard>
+        <BossCard style={{ padding: "4rem 0", width: "100%" }}>
+          <h4
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              margin: "1rem 0 0 1rem",
+              fontStyle: "italic",
+            }}
+          >
+            Welcome {username}
+          </h4>
+          <Typography
+            component="h1"
+            variant="h2"
+            align="center"
+            color="textPrimary"
+            gutterBottom
+          >
             Admin Dashboard
-            </Typography>
-            <Typography variant="h5" align="center" color="textSecondary" paragraph>
-              This is the admin dashboard to navigate through admin operations. 
-            </Typography>
-            <Drawer
-        className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-        anchor="left"
-      >
-        <div className={classes.toolbar} />
-        <Divider />
-        <List>
-          {['My profile', 'View All users', 'View all applications','View all passports', 'View all queries'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{iconArray[index]}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
-            
-            <div className={classes.heroButtons}>
-              <Grid container spacing={2} justify="center">
-              <Grid item>
-                  <Button component={Link} to="/user/profile" variant="contained" color="primary">
-                    View user profile
-                  </Button>
-                </Grid>
-                <Grid item>
-                  <Button variant="contained" color="secondary">
-                    Edit user profile
-                  </Button>
-                </Grid>
-              </Grid>
-            </div>
-          </Container>
-        </div>
-        <Container className={classes.cardGrid} maxWidth="md">
-          {/* End hero unit */}
-          <Grid container spacing={8}>
-              <Grid item xs={6} >
-                <Card className={classes.card}>
-                  <CardMedia
-                    className={classes.cardMedia}
-                    image="https://source.unsplash.com/random"
-                    title="Image title"
-                  />
-                  <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      Manage Users
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button component={Link} to="/admin/users" size="small" color="primary">
-                     View all users
-                    </Button>
-                  </CardActions>
-                </Card>
-              </Grid>
-              <Grid item  xs={6} >
-
-                <Card className={classes.card}>
-                  <CardMedia
-                    className={classes.cardMedia}
-                    image="https://source.unsplash.com/random"
-                    title="Image title"
-                  />
-                  <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      Manage passport applications
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button component={Link} to="/admin/applications" size="small" color="primary" >
-                      View all applications
-                    </Button>
-                  </CardActions>
-                </Card>
-              </Grid>
-
-              <Grid item xs={6} >
-                <Card className={classes.card}>
-                  <CardMedia
-                    className={classes.cardMedia}
-                    image="https://source.unsplash.com/random"
-                    title="Image title"
-                  />
-                  <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      Manage Passports
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button size="small" color="primary">
-                      View all generated passports
-                    </Button>
-                  </CardActions>
-                </Card>
-              </Grid>
-
-              <Grid item xs={6} >
-                <Card className={classes.card}>
-                  <CardMedia
-                    className={classes.cardMedia}
-                    image="https://source.unsplash.com/random"
-                    title="Image title"
-                  />
-                  <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      Manage Helpdesk
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button component={Link} to="/admin/helpdesk" size="small" color="primary">
-                      View all queries
-                    </Button>
-                  </CardActions>
-                </Card>
-              </Grid>
-
-          </Grid>
-
-        </Container>
-      </main>
-      </BossContainer>
-  );
+          </Typography>
+          <Typography
+            variant="h5"
+            align="center"
+            color="textSecondary"
+            paragraph
+          >
+            This is the admin dashboard to navigate through admin operations.
+          </Typography>
+        </BossCard>
+      </AdminDashboard>
+    );
+  }
 }
+
+export default withStyles(styles)(Admin);

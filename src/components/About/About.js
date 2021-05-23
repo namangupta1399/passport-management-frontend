@@ -40,13 +40,13 @@ function About() {
             style={{
               fontFamily: "Arial",
               fontWeight: "900",
-              fontSize: "5.5rem",
+              fontSize: "5.2rem",
               lineHeight: "1.4",
             }}
           >
             WHAT IS HOP ?
           </h1>
-          <p style={{ fontSize: "1.5rem" }}>
+          <p style={{ fontSize: "1.3rem" }}>
             The <strong>House of Passports</strong> (HOP) aims to make the whole
             process of applying for a Passport easier for the users. The system
             uses a user-friendly environment where the user can register and

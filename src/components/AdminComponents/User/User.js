@@ -17,6 +17,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import AddIcon from "@material-ui/icons/Add";
 import { Link } from "react-router-dom";
 import BossCard from "../../BossCard";
+import AdminDashboard from "../../Admin/AdminDashboard";
 
 class User extends Component {
   constructor(props) {
@@ -99,28 +100,28 @@ class User extends Component {
 
   render() {
     return (
-      <BossContainer>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            margin: "1rem 0",
-          }}
-        >
-          <h1 style={{ textAlign: "center" }}>Manage Users</h1>
-          <Button
-            component={Link}
-            to="/admin/users/new"
-            variant="contained"
-            color="primary"
-            size="large"
-            startIcon={<AddIcon />}
-          >
-            New user
-          </Button>
-        </div>
+      <AdminDashboard>
         <BossCard>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              margin: "1rem 0",
+            }}
+          >
+            <h1 style={{ textAlign: "center" }}>Manage Users</h1>
+            <Button
+              component={Link}
+              to="/admin/users/new"
+              variant="contained"
+              color="primary"
+              size="large"
+              startIcon={<AddIcon />}
+            >
+              New user
+            </Button>
+          </div>
           <TableContainer>
             <Table hover aria-label="simple table">
               <TableHead>
@@ -138,7 +139,7 @@ class User extends Component {
             </Table>
           </TableContainer>
         </BossCard>
-      </BossContainer>
+      </AdminDashboard>
     );
   }
 }

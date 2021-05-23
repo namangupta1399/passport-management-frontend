@@ -5,12 +5,18 @@ import SendIcon from "@material-ui/icons/Send";
 import ApplicantService from "../../../services/ApplicantService";
 import { withRouter } from "react-router";
 import BossCard from "../../BossCard";
+import Alert from "@material-ui/lab/Alert";
+import LoginService from "../../../services/LoginService";
+import ApplicantDashboard from "../../Applicant/ApplicantDashboard";
 
 class NewQuery extends Component {
   service = new ApplicantService();
+  loginService = new LoginService();
 
   initialState = {
     query: "",
+    error: undefined,
+    success: undefined,
   };
 
   state = { ...this.initialState };
@@ -21,28 +27,36 @@ class NewQuery extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    const user = this.loginService.isLoggedIn();
     const { query } = this.state;
-    const data = { query, user: { id: 1 } };
+    const data = { query, user: { id: user.id } };
     console.log(data);
     this.service
       .createHelpdeskQuery(data)
       .then((res) => {
         console.log("RES:", res);
-        this.props.history.push("/applicant/helpdesk");
+        this.setState({
+          ...this.initialState,
+          success: "Query submitted successfully!",
+        });
       })
       .catch((err) => {
         const error = err.message.substring(
           err.message.indexOf("=") + 1,
           err.message.indexOf("]")
         );
+        this.setState({
+          ...this.initialState,
+          error,
+        });
         console.log("ERR", error);
       });
   };
 
   render() {
     return (
-      <BossContainer>
-        <BossCard style={{maxWidth: '900px', padding: '100px'}}>
+      <ApplicantDashboard>
+        <BossCard style={{ width: "100%", padding: "100px" }}>
           <h1 style={{ textAlign: "center" }}>Submit your query here</h1>
           <hr />
           <form onSubmit={this.handleSubmit}>
@@ -70,8 +84,14 @@ class NewQuery extends Component {
               Send
             </Button>
           </form>
+          {this.state.success ? (
+            <Alert severity="success">{this.state.success}</Alert>
+          ) : null}
+          {this.state.error ? (
+            <Alert severity="error">{this.state.error}</Alert>
+          ) : null}
         </BossCard>
-      </BossContainer>
+      </ApplicantDashboard>
     );
   }
 }

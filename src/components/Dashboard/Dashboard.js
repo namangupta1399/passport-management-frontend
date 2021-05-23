@@ -10,73 +10,57 @@ import {
 } from "@material-ui/core";
 import React, { Component } from "react";
 import BossContainer from "../BossContainer";
-
-const drawerWidth = 240;
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import { Link } from "react-router-dom";
+import LoginService from "../../services/LoginService";
 
 const styles = (theme) => ({
   root: {
-    display: "flex",
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    width: drawerWidth,
-    position: "absolute",
-    // height: "auto",
-  },
-  drawerContainer: {
-    overflow: "auto",
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
+    width: 350,
+    height: "auto",
+    backgroundColor: theme.palette.background.paper,
   },
 });
 
 class Dashboard extends Component {
   classes = withStyles();
-
-  state = {
-    currentComponent: undefined,
-  };
+  loginService = new LoginService();
 
   render() {
     const classes = this.props.classes;
+    const user = this.loginService.isLoggedIn();
+    const username = user.email.split("@")[0];
     return (
-      <BossContainer style={{ position: "relative" }}>
-        <Drawer
-          className={classes.drawer}
-          variant="permanent"
-          classes={{
-            paper: classes.drawerPaper,
-          }}
-        >
-          <Toolbar />
-          <div className={classes.drawerContainer}>
-            <List>
-              {this.props.menuList.map((text, index) => (
-                <ListItem
-                  button
-                  key={text}
-                  onClick={() =>
-                    this.setState({
-                      currentComponent: this.props.components[index],
-                    })
-                  }
-                >
-                  <ListItemIcon>{this.props.icons[index]}</ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItem>
-              ))}
-            </List>
-          </div>
-        </Drawer>
-        {this.state.currentComponent}
+      <BossContainer
+        style={{
+          display: "flex",
+          alignItems: "stretch",
+        }}
+        noPadding
+      >
+        <div className={classes.root}>
+          <List component="nav">
+            <ListItem>
+              <AccountCircleIcon style={{ fontSize: "4rem" }} />
+              <h2 className="ml-3 mb-0">{username}</h2>
+            </ListItem>
+            <Divider />
+            {this.props.menuList.map((text, index) => (
+              <ListItem
+                button
+                key={text}
+                component={Link}
+                to={this.props.paths[index]}
+              >
+                <ListItemIcon>{this.props.icons[index]}</ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItem>
+            ))}
+          </List>
+        </div>
+        <div style={{ padding: "4rem 2rem", width: "100%" }}>
+          {this.props.children}
+        </div>
       </BossContainer>
     );
   }

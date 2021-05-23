@@ -18,6 +18,7 @@ import CheckCircleOutlineRoundedIcon from "@material-ui/icons/CheckCircleOutline
 import CancelRoundedIcon from "@material-ui/icons/CancelRounded";
 import HelpdeskDTO from "../../../Models/HelpdeskDTO";
 import BossCard from "../../BossCard";
+import AdminDashboard from "../../Admin/AdminDashboard";
 
 class Helpdesk extends Component {
   constructor(props) {
@@ -131,7 +132,7 @@ class Helpdesk extends Component {
 
   render() {
     return (
-      <BossContainer>
+      <AdminDashboard>
         <BossCard>
           <h1 style={{ textAlign: "center" }}>Helpdesk Queries</h1>
           <TableContainer>
@@ -159,7 +160,7 @@ class Helpdesk extends Component {
             handleSubmit={this.handleSubmit}
           />
         ) : null}
-      </BossContainer>
+      </AdminDashboard>
     );
   }
 }

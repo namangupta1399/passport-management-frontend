@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const currentTab = (history, path) => {
-  if (history.location.pathname === path) {
+  if (history.location.pathname === path || (path.includes("/applicant") && history.location.pathname.includes("/applicant")) || (path.includes("/admin") && history.location.pathname.includes("/admin"))) {
     return "active";
   }
 };

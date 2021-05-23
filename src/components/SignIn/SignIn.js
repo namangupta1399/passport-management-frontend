@@ -198,7 +198,7 @@ class SignIn extends Component {
               )}
             </Button>
             <div className="text-center">
-              <Link to="/register" variant="body2">
+              <Link to="/signup" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </div>

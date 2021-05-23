@@ -15,6 +15,7 @@ import React, { Component } from "react";
 import User from "../../../Models/User";
 import AdminService from "../../../services/AdminService";
 import ApplicantService from "../../../services/ApplicantService";
+import AdminDashboard from "../../Admin/AdminDashboard";
 import BossCard from "../../BossCard";
 import BossContainer from "../../BossContainer";
 
@@ -92,7 +93,7 @@ class NewUser extends Component {
   render() {
     const { email, password, userRole, loading } = this.state;
     return (
-      <BossContainer>
+      <AdminDashboard>
         <BossCard style={{ maxWidth: "600px" }}>
           <h1 style={{ textAlign: "center", margin: "1rem 0" }}>New User</h1>
           <hr />
@@ -169,7 +170,7 @@ class NewUser extends Component {
             </Button>
           </form>
         </BossCard>
-      </BossContainer>
+      </AdminDashboard>
     );
   }
 }

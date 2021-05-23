@@ -8,6 +8,7 @@ import {
 } from "@material-ui/core";
 import React, { Component } from "react";
 import AdminService from "../../../services/AdminService";
+import AdminDashboard from "../../Admin/AdminDashboard";
 import BossCard from "../../BossCard";
 import BossContainer from "../../BossContainer";
 
@@ -43,20 +44,21 @@ export class Passport extends Component {
           <TableCell>{passport.passportApplication.applicationNo}</TableCell>
         </TableRow>
       ));
-    } return (
-        <TableRow>
-            <TableCell colSpan={6} align="center">
-                <h4>No records found!</h4>
-            </TableCell>
-        </TableRow>
-    )
+    }
+    return (
+      <TableRow>
+        <TableCell colSpan={6} align="center">
+          <h4>No records found!</h4>
+        </TableCell>
+      </TableRow>
+    );
   };
 
   render() {
     return (
-      <BossContainer>
-        <h1 style={{ textAlign: "center" }}>Issued Passports</h1>
+      <AdminDashboard>
         <BossCard>
+          <h1 style={{ textAlign: "center" }}>Issued Passports</h1>
           <TableContainer>
             <Table aria-label="simple table">
               <TableHead>
@@ -73,7 +75,7 @@ export class Passport extends Component {
             </Table>
           </TableContainer>
         </BossCard>
-      </BossContainer>
+      </AdminDashboard>
     );
   }
 }

@@ -21,6 +21,7 @@ import BossContainer from "../../BossContainer";
 import Alert from "@material-ui/lab/Alert";
 import LoginService from "../../../services/LoginService";
 import BossCard from "../../BossCard";
+import ApplicantDashboard from "../../Applicant/ApplicantDashboard";
 
 const styles = (theme) => ({
   appBar: {
@@ -179,7 +180,7 @@ class NewPassportApplication extends Component {
     e.preventDefault();
     console.log(this.state);
 
-    const user = this.loginService.getCurrentUser();
+    const user = this.loginService.isLoggedIn();
 
     const {
       firstName,
@@ -254,15 +255,19 @@ class NewPassportApplication extends Component {
     const classes = this.props.classes;
     let activeStep = this.state.activeStep;
 
+    if (this.props.app !== undefined) {
+      return (
+        <BossCard style={{ width: "100%" }}>
+          <h1 className="text-center py-5 my-5">
+            Application already created!
+          </h1>
+        </BossCard>
+      );
+    }
+
     return (
-      <BossContainer>
+      <ApplicantDashboard>
         <CssBaseline />
-        {this.state.success ? (
-          <Alert severity="success">{this.state.success}</Alert>
-        ) : null}
-        {this.state.error ? (
-          <Alert severity="error">{this.state.error}</Alert>
-        ) : null}
         <form
           onSubmit={
             activeStep === steps.length - 1
@@ -272,6 +277,12 @@ class NewPassportApplication extends Component {
         >
           <main className={classes.layout}>
             <BossCard>
+              {this.state.success ? (
+                <Alert severity="success">{this.state.success}</Alert>
+              ) : null}
+              {this.state.error ? (
+                <Alert severity="error">{this.state.error}</Alert>
+              ) : null}
               <Typography component="h1" variant="h4" align="center">
                 New Passport Application
               </Typography>
@@ -304,7 +315,7 @@ class NewPassportApplication extends Component {
           </main>
         </form>
         <h1>{this.state.loading ? "Loading..." : null}</h1>
-      </BossContainer>
+      </ApplicantDashboard>
     );
   }
 }

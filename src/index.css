@@ -12,9 +12,10 @@ body {
 
   /* background-image: linear-gradient(rgba(255, 255, 255, 0.5),rgba(255, 255, 255, 0.5)), url(https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80); */
   background-image: url('./assets/images/background/bg2.jpg');
-  /* background-size: con; */
   background-repeat: repeat;
   background-position: center;
+  /* Back image for how it works */
+  /* background-image: url('https://image.freepik.com/free-vector/lot-black-international-travel-visa-rubber-stamps-imprints-old-paper-horizontal-vintage-background_88653-646.jpg'); */
 }
 
 code {
