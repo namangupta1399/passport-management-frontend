@@ -22,6 +22,7 @@ import Alert from "@material-ui/lab/Alert";
 import LoginService from "../../../services/LoginService";
 import BossCard from "../../BossCard";
 import ApplicantDashboard from "../../Applicant/ApplicantDashboard";
+import OtherServices from "../../../services/OtherServices";
 
 const styles = (theme) => ({
   appBar: {
@@ -104,6 +105,19 @@ class NewPassportApplication extends Component {
   };
 
   state = { ...this.initialState };
+
+  componentDidMount() {
+    const user = this.loginService.isLoggedIn();
+    this.appService
+      .getPassportApplicationByUser(user.id)
+      .then((res) => {
+        this.setState({ appExists: true });
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   getStepContent = (step) => {
     switch (step) {
@@ -240,6 +254,7 @@ class NewPassportApplication extends Component {
           error: "",
           success: "Application submitted successfully!",
         });
+        this.props.history.push("/applicant/passportapplication")
       })
       .catch((err) => {
         console.log("ERR", err);
@@ -255,13 +270,15 @@ class NewPassportApplication extends Component {
     const classes = this.props.classes;
     let activeStep = this.state.activeStep;
 
-    if (this.props.app !== undefined) {
+    if (this.state.appExists) {
       return (
-        <BossCard style={{ width: "100%" }}>
-          <h1 className="text-center py-5 my-5">
-            Application already created!
-          </h1>
-        </BossCard>
+        <ApplicantDashboard>
+          <BossCard style={{ width: "100%" }}>
+            <h1 className="text-center py-5 my-5">
+              Application already created!
+            </h1>
+          </BossCard>
+        </ApplicantDashboard>
       );
     }
 

@@ -14,6 +14,9 @@ import { Link } from "react-router-dom";
 import LoginService from "../../services/LoginService";
 import BossCard from "../BossCard";
 import ApplicantDashboard from "./ApplicantDashboard";
+import CheckIcon from "@material-ui/icons/Check";
+import ClearIcon from "@material-ui/icons/Clear";
+import ApplicantService from "../../services/ApplicantService";
 
 const drawerWidth = 240;
 
@@ -72,12 +75,142 @@ const styles = (theme) => ({
 
 class Applicant extends Component {
   classes = withStyles();
+  applicantService = new ApplicantService();
   loginService = new LoginService();
+
+  state = {
+    application: undefined,
+    passport: undefined,
+    queries: 0,
+  };
+
+  componentDidMount() {
+    const userId = this.loginService.isLoggedIn().id;
+
+    // Get application
+    this.applicantService
+      .getPassportApplicationByUser(userId)
+      .then((res) => {
+        console.log(res);
+        this.setState({ application: res });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    // Get passport
+    this.applicantService
+      .getPassport(userId)
+      .then((res) => {
+        console.log(res);
+        this.setState({ passport: res });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    // Get queries
+    this.applicantService
+      .getAllHelpdeskQueries(userId)
+      .then((res) => {
+        this.setState({ queries: res.length });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  dataStyle = {
+    dataRow: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-evenly",
+    },
+    dataBlock: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    data: {
+      width: "120px",
+      height: "120px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      borderRadius: "100%",
+      color: "#fff",
+      fontSize: '2rem'
+    },
+    dataLabel: {
+      fontWeight: "bold",
+      fontSize: "20px",
+      marginTop: "10px",
+    },
+  };
+
+  dataCheck = (value) => {
+    return value
+      ? this.dataContainer(
+          <CheckIcon style={{ fontSize: "3rem" }} />,
+          "bg-success"
+        )
+      : this.dataContainer(
+          <ClearIcon style={{ fontSize: "3rem" }} />,
+          "bg-danger"
+        );
+  };
+
+  dataContainer = (value, color) => {
+    return (
+      <div style={this.dataStyle.data} className={color}>
+        {value}
+      </div>
+    );
+  };
+
+  dataList = () => {
+    if (this.state.application || this.state.passport) {
+      const { application, passport } = this.state;
+      const { applicationStatus, documents } = application;
+      const documentStatus = documents[0].isVerified && documents[1].isVerified;
+
+      console.log(applicationStatus, documentStatus);
+
+      const dataValue = [
+        this.dataCheck(documentStatus),
+        this.dataCheck(applicationStatus),
+        this.dataCheck(passport),
+        this.dataContainer(this.state.queries, "bg-secondary"),
+      ];
+
+      const dataLabel = [
+        "Document Status",
+        "Application Status",
+        "Passport issued",
+        "Queries",
+      ];
+
+      return (
+        <div style={this.dataStyle.dataRow} className="mt-5">
+          {dataLabel.map((label, index) => {
+            return (
+              <div style={this.dataStyle.dataBlock}>
+                {dataValue[index]}
+                <div style={this.dataStyle.dataLabel}>{label}</div>
+              </div>
+            );
+          })}
+        </div>
+      );
+    }
+  };
 
   render() {
     const classes = this.props.classes;
     const user = this.loginService.isLoggedIn();
     const username = user.email.split("@")[0];
+
     return (
       <ApplicantDashboard>
         <BossCard style={{ padding: "4rem 0", width: "100%" }}>
@@ -90,7 +223,7 @@ class Applicant extends Component {
               fontStyle: "italic",
             }}
           >
-            Welcome {username}
+            Welcome {username} !
           </h4>
           <Typography
             component="h1"
@@ -110,6 +243,7 @@ class Applicant extends Component {
             This is the applicant dashboard to navigate through applicant
             operations.
           </Typography>
+          {this.dataList()}
         </BossCard>
       </ApplicantDashboard>
     );

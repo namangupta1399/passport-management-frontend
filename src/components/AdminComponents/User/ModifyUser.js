@@ -193,7 +193,7 @@ class ModifyUser extends Component {
               {loading ? (
                 <CircularProgress style={{ color: "#fff" }} />
               ) : (
-                "Modify User"
+                "Update"
               )}
             </Button>
           </form>

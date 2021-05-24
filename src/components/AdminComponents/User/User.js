@@ -18,12 +18,14 @@ import AddIcon from "@material-ui/icons/Add";
 import { Link } from "react-router-dom";
 import BossCard from "../../BossCard";
 import AdminDashboard from "../../Admin/AdminDashboard";
+import LoginService from "../../../services/LoginService";
 
 class User extends Component {
   constructor(props) {
     super(props);
 
     this.adminService = new AdminService();
+    this.loginService = new LoginService();
 
     this.state = {
       users: [],
@@ -43,6 +45,11 @@ class User extends Component {
 
   handleDelete = (userId) => {
     console.log("DELETE: ", userId);
+    const currentUser = this.loginService.isLoggedIn();
+    if (currentUser.id === userId) {
+      window.alert("Cannot delete self");
+      return;
+    }
     this.adminService
       .deleteUser(userId)
       .then((res) => {
@@ -74,7 +81,7 @@ class User extends Component {
               color="primary"
               aria-label="edit user"
             >
-              <EditIcon />
+              <EditIcon htmlColor="#ffc107" />
             </IconButton>
           </TableCell>
           <TableCell>
@@ -83,7 +90,7 @@ class User extends Component {
               aria-label="remove user"
               onClick={this.handleDelete.bind(this, user.id)}
             >
-              <DeleteIcon />
+              <DeleteIcon color="secondary" />
             </IconButton>
           </TableCell>
         </TableRow>

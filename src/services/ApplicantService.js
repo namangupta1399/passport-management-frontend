@@ -97,6 +97,16 @@ class ApplicantService {
       });
   };
 
+  // Get passport by user
+  getPassport = (userId) => {
+    return axios
+      .get(`${BASE_URL}/applicant/passport/${userId}`)
+      .then((res) => res.data)
+      .catch((err) => {
+        throw new Error(err.response.data.message);
+      });
+  };
+
   // New helpdesk query
   createHelpdeskQuery = (query) => {
     return axios

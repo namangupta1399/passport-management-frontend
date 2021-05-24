@@ -32,7 +32,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const currentTab = (history, path) => {
-  if (history.location.pathname === path || (path.includes("/applicant") && history.location.pathname.includes("/applicant")) || (path.includes("/admin") && history.location.pathname.includes("/admin"))) {
+  if (
+    history.location.pathname === path ||
+    (path.includes("/applicant") &&
+      history.location.pathname.includes("/applicant")) ||
+    (path.includes("/admin") && history.location.pathname.includes("/admin"))
+  ) {
     return "active";
   }
 };
@@ -84,16 +89,22 @@ const Navbar = ({ history }) => {
                   className={`nav-link ${currentTab(history, "/signin")}`}
                   to="/signin"
                 >
-                  Login
+                  Sign In
                 </Link>
                 <Link
                   className={`nav-link ${currentTab(history, "/signup")}`}
                   to="/signup"
                 >
-                  REGISTER
+                  Sign Up
                 </Link>
               </>
             )}
+            <Link
+              className={`nav-link ${currentTab(history, "/contact")}`}
+              to="/contact"
+            >
+              Contact Us
+            </Link>
             {isLoggedIn() && (
               <Link
                 className={`nav-link`}
@@ -107,18 +118,6 @@ const Navbar = ({ history }) => {
                 Signout
               </Link>
             )}
-            <Link
-              className={`nav-link ${currentTab(history, "/contact")}`}
-              to="/contact"
-            >
-              Contact Us
-            </Link>
-            <Link
-              className={`nav-link ${currentTab(history, "/sitemap")}`}
-              to="/sitemap"
-            >
-              Sitemap
-            </Link>
           </Container>
         </Toolbar>
       </AppBar>

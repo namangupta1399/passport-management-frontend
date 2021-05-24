@@ -19,7 +19,7 @@ const Footer = () => {
     display: "flex",
     alignItems: "baseline",
     justifyContent: "space-evenly",
-    paddingTop: '2rem'
+    paddingTop: "2rem",
   };
   return (
     <>
@@ -34,9 +34,15 @@ const Footer = () => {
               <li>
                 <Link to="/privacy">Privacy Policy</Link>
               </li>
+              <li>
+                <Link to="/faqs">FAQs</Link>
+              </li>
+              <li>
+                <Link to="/sitemap">Sitemap</Link>
+              </li>
             </ul>
           </div>
-          <div>
+          {/* <div>
             <h3>Helpdesk</h3>
             <ul className="list-unstyled">
               <li>
@@ -46,7 +52,7 @@ const Footer = () => {
                 <Link>My queries</Link>
               </li>
             </ul>
-          </div>
+          </div> */}
           <div>
             <h3>Contact Us</h3>
             <ul className="list-unstyled">
@@ -73,7 +79,8 @@ const Footer = () => {
         <div className="text-white text-right p-3">
           <p>
             &copy;{new Date().getFullYear()} House Of Passports | All rights
-            reserved | <Link to="/terms">Terms of Service</Link> | <Link to="/privacy">Privacy</Link>
+            reserved | <Link to="/terms">Terms of Service</Link> |{" "}
+            <Link to="/privacy">Privacy</Link>
           </p>
         </div>
       </footer>

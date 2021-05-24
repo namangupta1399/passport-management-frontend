@@ -25,8 +25,11 @@ import Passport from "./components/AdminComponents/Passport";
 import Contact from "./components/Contact";
 import AdminRoute from "./Routes/AdminRoute";
 import PrivateRoute from "./Routes/PrivateRoute";
-import Terms from './components/Terms'
+import Terms from "./components/Terms";
 import Privacy from "./components/Privacy/Privacy";
+import Faqs from "./components/Faqs";
+import PassportSingle from "./components/AdminComponents/Passport/PassportSingle";
+import { default as ApplicantPassport } from "./components/ApplicantComponents/Passport";
 
 export const routesList = [
   {
@@ -65,6 +68,11 @@ export const routesList = [
     type: "common",
   },
   {
+    path: "/faqs",
+    component: Faqs,
+    type: "common",
+  },
+  {
     path: "/user/profile",
     component: UserProfile,
     type: "common",
@@ -100,6 +108,11 @@ export const routesList = [
     type: "applicant",
   },
   {
+    path: "/applicant/passport",
+    component: ApplicantPassport,
+    type: "applicant",
+  },
+  {
     path: "/admin",
     component: Admin,
     type: "admin",
@@ -132,6 +145,11 @@ export const routesList = [
   {
     path: "/admin/passports",
     component: Passport,
+    type: "admin",
+  },
+  {
+    path: "/admin/passports/:appNo",
+    component: PassportSingle,
     type: "admin",
   },
   {

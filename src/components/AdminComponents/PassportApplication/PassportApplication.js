@@ -102,13 +102,20 @@ class PassportApplication extends Component {
         </TableRow>
       ));
     }
+    return (
+      <TableRow>
+        <TableCell colSpan={7} align="center">
+          <h4>No records found!</h4>
+        </TableCell>
+      </TableRow>
+    );
   };
 
   render() {
     return (
       <AdminDashboard>
         <BossCard>
-        <h1 style={{ textAlign: "center" }}>Passport Applications</h1>
+          <h1 style={{ textAlign: "center" }}>Passport Applications</h1>
           <TableContainer>
             <Table aria-label="simple table">
               <TableHead>

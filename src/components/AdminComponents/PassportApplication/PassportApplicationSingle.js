@@ -23,6 +23,7 @@ import CancelRoundedIcon from "@material-ui/icons/CancelRounded";
 import DocumentStatus from "../../../Models/DocumentStatus";
 import { withRouter } from "react-router";
 import AdminDashboard from "../../Admin/AdminDashboard";
+import { Link } from "react-router-dom";
 
 class PassportApplicationSingle extends Component {
   service = new AdminService();
@@ -126,6 +127,7 @@ class PassportApplicationSingle extends Component {
       .then((res) => {
         console.log(res);
         alert("Passport issed successfully!");
+        this.props.history.push(`/admin/passports/${this.state.application.applicationNo}`)
       })
       .catch((err) => {
         console.log(err);
@@ -151,7 +153,7 @@ class PassportApplicationSingle extends Component {
     }
     if (this.state.passport !== undefined) {
       return (
-        <Button variant="contained" color="primary">
+        <Button variant="contained" color="primary" component={Link} to={`/admin/passports/${this.state.application.applicationNo}`}>
           View Passport
         </Button>
       );

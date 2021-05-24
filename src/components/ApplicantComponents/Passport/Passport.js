@@ -1,18 +1,13 @@
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from "@material-ui/core";
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@material-ui/core";
 import React, { Component } from "react";
-import AdminService from "../../../services/AdminService";
-import AdminDashboard from "../../Admin/AdminDashboard";
+import ApplicantService from "../../../services/ApplicantService";
+import LoginService from "../../../services/LoginService";
+import ApplicantDashboard from "../../Applicant/ApplicantDashboard";
 import BossCard from "../../BossCard";
 
-class PassportSingle extends Component {
-  adminService = new AdminService();
+class Passport extends Component {
+  applicantService = new ApplicantService();
+  loginService = new LoginService();
 
   initalState = {
     passport: undefined,
@@ -21,9 +16,9 @@ class PassportSingle extends Component {
   state = { ...this.initalState };
 
   componentDidMount() {
-    const appNo = this.props.match.params.appNo;
-    this.adminService
-      .getPassportByApp(appNo)
+    const user = this.loginService.isLoggedIn();
+    this.applicantService
+      .getPassport(user.id)
       .then((res) => {
         this.setState({ passport: { ...res } });
       })
@@ -36,7 +31,7 @@ class PassportSingle extends Component {
     const { passport } = this.state;
     if (passport !== undefined) {
       return (
-        <AdminDashboard>
+        <ApplicantDashboard>
           <BossCard>
             <h1 style={{ textAlign: "center" }}>Passport Details</h1>
             <TableContainer>
@@ -64,11 +59,11 @@ class PassportSingle extends Component {
               </Table>
             </TableContainer>
           </BossCard>
-        </AdminDashboard>
+        </ApplicantDashboard>
       );
     }
     return (
-      <AdminDashboard>
+      <ApplicantDashboard>
         {this.state.application ? (
           this.renderApplication()
         ) : (
@@ -76,9 +71,9 @@ class PassportSingle extends Component {
             <h1 className="text-center py-5 my-5">Passport not issued!</h1>
           </BossCard>
         )}
-      </AdminDashboard>
+      </ApplicantDashboard>
     );
   }
 }
 
-export default PassportSingle;
+export default Passport;

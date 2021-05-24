@@ -6,15 +6,34 @@ import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
+import OtherServices from "../../../services/OtherServices";
 
 class Address extends Component {
+  otherServices = new OtherServices();
 
-  handleChange = e => {
-    this.props.handleChange(e, 'address');
+  state = {
+    indiaStates: [],
+  };
+
+  componentDidMount() {
+    this.otherServices
+      .getStates()
+      .then((res) => {
+        console.log(res.states);
+        this.setState({ indiaStates: [...res.states] });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  handleChange = (e) => {
+    this.props.handleChange(e, "address");
   };
 
   render() {
-    const { houseNo, street, state, district, pinCode, mobileNo } = this.props.data;
+    const { houseNo, street, state, district, pinCode, mobileNo } =
+      this.props.data;
     return (
       <React.Fragment>
         <Typography variant="h6" gutterBottom>
@@ -50,8 +69,20 @@ class Address extends Component {
           <Grid item xs={12} sm={6}>
             <FormControl style={{ width: "100%" }}>
               <InputLabel>State</InputLabel>
-              <Select type="select" name="state" value={state} onChange={this.handleChange} required>
-                <MenuItem value="Delhi">Delhi</MenuItem>
+              <Select
+                type="select"
+                name="state"
+                value={state}
+                onChange={this.handleChange}
+                required
+              >
+                {this.state.indiaStates.map((s) => {
+                  return (
+                    <MenuItem key={s.state_id} value={s.state_name}>
+                      {s.state_name}
+                    </MenuItem>
+                  );
+                })}
               </Select>
             </FormControl>
           </Grid>

@@ -11,6 +11,7 @@ import {
 } from "@material-ui/core";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import AdminService from "../../services/AdminService";
 import LoginService from "../../services/LoginService";
 import BossCard from "../BossCard";
 import AdminDashboard from "./AdminDashboard";
@@ -72,7 +73,131 @@ const styles = (theme) => ({
 
 class Admin extends Component {
   classes = withStyles();
+  adminService = new AdminService();
   loginService = new LoginService();
+
+  state = {
+    users: 0,
+    applications: 0,
+    passports: 0,
+    queries: 0,
+  };
+
+  componentDidMount() {
+    const userId = this.loginService.isLoggedIn().id;
+
+    // Get applications
+    this.adminService
+      .getAllUsers()
+      .then((res) => {
+        console.log(res);
+        this.setState({ users: res.length });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    // Get applications
+    this.adminService
+      .getAllPassportApplications()
+      .then((res) => {
+        console.log(res);
+        this.setState({ applications: res.length });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    // Get passports
+    this.adminService
+      .getAllPassports()
+      .then((res) => {
+        console.log(res);
+        this.setState({ passports: res.length });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    // Get all queries
+    this.adminService
+      .getAllHelpdeskQueries()
+      .then((res) => {
+        this.setState({ queries: res.length });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  dataStyle = {
+    dataRow: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-evenly",
+    },
+    dataBlock: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    data: {
+      width: "120px",
+      height: "120px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      borderRadius: "100%",
+      color: "#fff",
+      fontSize: "2rem",
+    },
+    dataLabel: {
+      fontWeight: "bold",
+      fontSize: "20px",
+      marginTop: "10px",
+    },
+  };
+
+  dataContainer = (value, color) => {
+    return (
+      <div style={this.dataStyle.data} className={color}>
+        {value}
+      </div>
+    );
+  };
+
+  dataList = () => {
+    const { users, applications, passports, queries } = this.state;
+    if (users > 0 || applications > 0 || passports > 0 || queries > 0) {
+      const dataValue = [
+        this.dataContainer(users, "bg-primary"),
+        this.dataContainer(applications, "bg-danger"),
+        this.dataContainer(passports, "bg-success"),
+        this.dataContainer(queries, "bg-secondary"),
+      ];
+
+      const dataLabel = [
+        "Users",
+        "Applications",
+        "Passports issued",
+        "Queries",
+      ];
+
+      return (
+        <div style={this.dataStyle.dataRow} className="mt-5">
+          {dataLabel.map((label, index) => {
+            return (
+              <div style={this.dataStyle.dataBlock}>
+                {dataValue[index]}
+                <div style={this.dataStyle.dataLabel}>{label}</div>
+              </div>
+            );
+          })}
+        </div>
+      );
+    }
+  };
 
   render() {
     const classes = this.props.classes;
@@ -90,7 +215,7 @@ class Admin extends Component {
               fontStyle: "italic",
             }}
           >
-            Welcome {username}
+            Welcome {username} !
           </h4>
           <Typography
             component="h1"
@@ -109,6 +234,7 @@ class Admin extends Component {
           >
             This is the admin dashboard to navigate through admin operations.
           </Typography>
+          {this.dataList()}
         </BossCard>
       </AdminDashboard>
     );

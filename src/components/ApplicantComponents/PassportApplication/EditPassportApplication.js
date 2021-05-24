@@ -102,12 +102,22 @@ class EditPassportApplication extends Component {
     loading: false,
     success: undefined,
     error: undefined,
+    passportExists: false,
   };
 
   state = { ...this.initialState };
 
   componentDidMount() {
     const currentUser = this.loginService.isLoggedIn();
+    this.appService
+      .getPassport(currentUser.id)
+      .then((res) => {
+        this.setState({ passportExists: true });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
     this.appService
       .getPassportApplicationByUser(currentUser.id)
       .then((res) => {
@@ -154,7 +164,6 @@ class EditPassportApplication extends Component {
       })
       .catch((err) => {
         console.log(err);
-        this.props.history.push("/applicant");
       });
   }
 
@@ -300,11 +309,21 @@ class EditPassportApplication extends Component {
     const classes = this.props.classes;
     let activeStep = this.state.activeStep;
 
-    if (!this.props.app) {
+    if (!this.state.application) {
       return (
         <ApplicantDashboard>
           <BossCard style={{ width: "100%" }}>
             <h1 className="text-center py-5 my-5">No application found!</h1>
+          </BossCard>
+        </ApplicantDashboard>
+      );
+    }
+
+    if (this.state.passportExists) {
+      return (
+        <ApplicantDashboard>
+          <BossCard style={{ width: "100%" }}>
+            <h1 className="text-center py-5 my-5">Passport issued! Cannot update the application</h1>
           </BossCard>
         </ApplicantDashboard>
       );

@@ -7,6 +7,7 @@ import {
   TableRow,
 } from "@material-ui/core";
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import AdminService from "../../../services/AdminService";
 import AdminDashboard from "../../Admin/AdminDashboard";
 import BossCard from "../../BossCard";
@@ -41,7 +42,15 @@ export class Passport extends Component {
           <TableCell>{passport.dateOfIssue}</TableCell>
           <TableCell>{passport.dateOfExpiry}</TableCell>
           <TableCell>{passport.nationality}</TableCell>
-          <TableCell>{passport.passportApplication.applicationNo}</TableCell>
+          <TableCell align="center">
+            <strong>
+              <Link
+                to={`/admin/applications/${passport.passportApplication.applicationNo}`}
+              >
+                #&nbsp;{passport.passportApplication.applicationNo}
+              </Link>
+            </strong>
+          </TableCell>
         </TableRow>
       ));
     }

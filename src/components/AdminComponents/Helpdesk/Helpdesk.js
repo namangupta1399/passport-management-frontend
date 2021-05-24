@@ -123,7 +123,7 @@ class Helpdesk extends Component {
     }
     return (
       <TableRow>
-        <TableCell colSpan="3" align="center">
+        <TableCell colSpan="8" align="center">
           <h4>No records found!</h4>
         </TableCell>
       </TableRow>

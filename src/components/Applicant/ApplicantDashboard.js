@@ -15,27 +15,13 @@ import EditPassportApplication from "../ApplicantComponents/PassportApplication/
 import Helpdesk from "../ApplicantComponents/Helpdesk";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import NewQuery from "../ApplicantComponents/Helpdesk/NewQuery";
+import HelpIcon from '@material-ui/icons/Help';
+import LaunchIcon from '@material-ui/icons/Launch';
 
 class ApplicantDashboard extends Component {
   loginService = new LoginService();
   applicantService = new ApplicantService();
   user = this.loginService.isLoggedIn();
-
-//   state = {
-//     application: undefined,
-//   };
-
-//   componentDidMount() {
-//     this.applicantService
-//       .getPassportApplicationByUser(this.user.id)
-//       .then((res) => {
-//         console.log(res);
-//         this.setState({ application: { ...res } });
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//   }
 
   render() {
     const menuArr = [
@@ -45,7 +31,7 @@ class ApplicantDashboard extends Component {
       "View my application",
       "Edit my application",
       "Helpdesk",
-      "New Query",
+      "Have a query ?",
     ];
 
     const paths = [
@@ -64,8 +50,8 @@ class ApplicantDashboard extends Component {
       <CreateNewFolderIcon />,
       <FileCopyIcon />,
       <EditIcon />,
-      <DeleteIcon />,
-      <CreateNewFolderIcon />,
+      <HelpIcon />,
+      <LaunchIcon />,
     ];
 
     return (

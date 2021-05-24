@@ -151,7 +151,7 @@ class Contact extends Component {
                   <LinkedInIcon
                     className="d-block mx-auto"
                     style={{ cursor: "pointer" }}
-                    onClick={() => (window.location.href = "")}
+                    onClick={() => (window.location.href = "https://www.linkedin.com/in/siddharth-gautam-160227172/")}
                   />
                 </div>
               </div>

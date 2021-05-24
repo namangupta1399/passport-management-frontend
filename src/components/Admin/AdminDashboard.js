@@ -14,6 +14,10 @@ import EditPassportApplication from "../ApplicantComponents/PassportApplication/
 import Helpdesk from "../ApplicantComponents/Helpdesk";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import NewQuery from "../ApplicantComponents/Helpdesk/NewQuery";
+import HelpIcon from '@material-ui/icons/Help';
+import LaunchIcon from '@material-ui/icons/Launch';
+import GroupIcon from '@material-ui/icons/Group';
+import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 
 class AdminDashboard extends Component {
   loginService = new LoginService();
@@ -41,11 +45,10 @@ class AdminDashboard extends Component {
     const iconArray = [
       <DashboardIcon />,
       <AccountCircleIcon />,
-      <CreateNewFolderIcon />,
+      <GroupIcon />,
       <FileCopyIcon />,
-      <EditIcon />,
-      <DeleteIcon />,
-      <CreateNewFolderIcon />,
+      <LibraryBooksIcon />,
+      <HelpIcon />
     ];
 
     return (

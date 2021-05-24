@@ -26,6 +26,7 @@ import LoginService from "../../../services/LoginService";
 import ApplicantService from "../../../services/ApplicantService";
 import BossCard from "../../BossCard";
 import ApplicantDashboard from "../../Applicant/ApplicantDashboard";
+import { Link } from "react-router-dom";
 
 class PassportApplication extends Component {
   applicantService = new ApplicantService();
@@ -63,6 +64,21 @@ class PassportApplication extends Component {
     expanded: "panel1",
   };
 
+  componentDidMount() {
+    const userId = this.loginservice.isLoggedIn().id;
+
+    this.applicantService
+      .getPassportApplicationByUser(userId)
+      .then((res) => {
+        console.log(res);
+        this.setState({ application: res });
+      })
+      .catch((err) => {
+        console.log(err);
+        this.props.history.push("/applicant/passportApplication/new");
+      });
+  }
+
   handleChange = (value) => {
     this.setState({ expanded: value });
   };
@@ -95,7 +111,7 @@ class PassportApplication extends Component {
   };
 
   renderApplication = () => {
-    const { app } = this.props;
+    const { application } = this.state;
     const {
       firstName,
       middleName,
@@ -110,7 +126,7 @@ class PassportApplication extends Component {
       address,
       documents,
       applicationStatus,
-    } = app;
+    } = application;
     const { houseNo, street, state, district, pinCode, mobileNo } = address;
     const { expanded } = this.state;
     return (
@@ -251,7 +267,7 @@ class PassportApplication extends Component {
                               <TableCell>{document.documentName}</TableCell>
                               <TableCell>{document.documentValue}</TableCell>
                               <TableCell>
-                                {document.isResolved ? (
+                                {document.isVerified ? (
                                   <CheckCircleOutlineRoundedIcon
                                     style={{ color: "#0f0" }}
                                   />
@@ -278,7 +294,12 @@ class PassportApplication extends Component {
             marginTop: "1rem",
           }}
         >
-          <Button variant="contained" color="primary">
+          <Button
+            variant="contained"
+            color="primary"
+            component={Link}
+            to="/applicant/passport"
+          >
             View Passport
           </Button>
         </div>
@@ -289,7 +310,7 @@ class PassportApplication extends Component {
   render() {
     return (
       <ApplicantDashboard>
-        {this.props.app ? (
+        {this.state.application ? (
           this.renderApplication()
         ) : (
           <BossCard style={{ width: "100%" }}>
