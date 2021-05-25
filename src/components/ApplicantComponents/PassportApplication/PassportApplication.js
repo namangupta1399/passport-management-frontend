@@ -83,33 +83,6 @@ class PassportApplication extends Component {
     this.setState({ expanded: value });
   };
 
-  handleSwitch = (docId, status) => {
-    const docs = [...this.state.application.documents];
-
-    const docStatus = new DocumentStatus(docId, status);
-    this.service
-      .updateDocumentStatus(docStatus)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => console.log(err));
-
-    docs.forEach((doc) => {
-      if (doc.documentId === docId) {
-        doc.isVerified = status;
-      }
-    });
-    this.setState((prevState) => {
-      return {
-        ...prevState,
-        aplication: {
-          ...prevState.application,
-          documents: [...docs],
-        },
-      };
-    });
-  };
-
   renderApplication = () => {
     const { application } = this.state;
     const {

@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import Home from "./components/Home";
 import PageNotFound from "./components/PageNotFound";
-import About from "./components/About";
+import About from "./components/About/About";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import { default as ApplicantHelpdesk } from "./components/ApplicantComponents/Helpdesk";
