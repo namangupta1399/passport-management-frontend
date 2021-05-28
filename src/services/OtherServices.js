@@ -4,7 +4,7 @@ class OtherServices {
   getNews = () => {
     return axios
       .get(
-        `https://newsapi.org/v2/top-headlines?country=in&apiKey=${process.env.REACT_APP_NEWS_KEY}`
+        `http://api.mediastack.com/v1/news?access_key=${process.env.REACT_APP_NEWS_KEY}&languages=en&keywords=covid`
       )
       .then((res) => {
         // console.log(res);

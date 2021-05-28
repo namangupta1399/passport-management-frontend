@@ -53,7 +53,7 @@ class NewsStrip extends Component {
             articles.map((article) => (
               <>
                 <img src={newImage} alt={article.author} width="60" />
-                <span>{article.description}</span>
+                <span>{article.title}</span>
               </>
             ))}
         </marquee>
@@ -72,8 +72,8 @@ class Home extends Component {
     this.otherService
       .getNews()
       .then((res) => {
-        console.log(res.articles);
-        this.setState({ news: [...res.articles] });
+        console.log(res.data);
+        this.setState({ news: [...res.data] });
       })
       .catch((err) => {
         console.log(err);
