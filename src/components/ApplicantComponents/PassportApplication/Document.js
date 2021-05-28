@@ -23,6 +23,7 @@ class Documents extends Component {
               id="aadhaarvalue"
               name="aadhaar"
               label="Aadhaar Card Number"
+              placeholder="xxxx xxxx xxxx"
               fullWidth
               autoComplete="aadhaar-card-no"
               value={aadhaar}
@@ -36,6 +37,7 @@ class Documents extends Component {
               id="pancardvalue"
               name="pan"
               label="Pan Card Number"
+              placeholder="CDKPH3928N"
               fullWidth
               autoComplete="pan-card-no"
               value={pan}

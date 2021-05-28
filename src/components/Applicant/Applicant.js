@@ -170,7 +170,7 @@ class Applicant extends Component {
   };
 
   dataList = () => {
-    if (this.state.application && this.state.passport) {
+    if (this.state.application || this.state.passport) {
       const { application, passport } = this.state;
       const { applicationStatus, documents } = application;
       const documentStatus = documents[0].isVerified && documents[1].isVerified;

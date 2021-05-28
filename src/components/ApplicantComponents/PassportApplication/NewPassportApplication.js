@@ -275,7 +275,7 @@ class NewPassportApplication extends Component {
         <ApplicantDashboard>
           <BossCard style={{ width: "100%" }}>
             <h1 className="text-center py-5 my-5">
-              Application already created!
+              Application already submitted!
             </h1>
           </BossCard>
         </ApplicantDashboard>

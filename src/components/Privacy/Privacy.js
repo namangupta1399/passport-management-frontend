@@ -3,8 +3,8 @@ import BossContainer from "../BossContainer";
 import BossCard from "../BossCard";
 import passportBg from "../../assets/images/passport_bg.png";
 
-class Privacy extends Component {
-  render() {
+const Privacy =() => {
+  
     return (
       <BossContainer>
         <div className="position-relative mx-auto" style={{ width: "60%" }}>
@@ -53,7 +53,7 @@ class Privacy extends Component {
         </div>
       </BossContainer>
     );
-  }
+
 }
 
 export default Privacy;

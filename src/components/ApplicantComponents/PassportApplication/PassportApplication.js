@@ -33,34 +33,7 @@ class PassportApplication extends Component {
   loginservice = new LoginService();
 
   state = {
-    application: {
-      firstName: "",
-      middleName: "",
-      lastName: "",
-      gender: "",
-      dateOfBirth: "",
-      placeOfBirth: "",
-      maritalStatus: "",
-      isIndian: true,
-      employmentType: "",
-      educationalQualification: "",
-      address: {
-        houseNo: "",
-        street: "",
-        state: "",
-        district: "",
-        pinCode: "",
-        mobileNo: "",
-      },
-      documents: {
-        aadhaar: "",
-        pan: "",
-      },
-      user: {
-        id: "",
-      },
-      applicationStatus: undefined,
-    },
+    application: undefined,
     expanded: "panel1",
   };
 
@@ -75,7 +48,7 @@ class PassportApplication extends Component {
       })
       .catch((err) => {
         console.log(err);
-        this.props.history.push("/applicant/passportApplication/new");
+        // this.props.history.push("/applicant/passportApplication/new");
       });
   }
 
