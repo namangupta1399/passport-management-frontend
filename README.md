@@ -19,4 +19,4 @@
 
     Your code will be successfully pushed to the application repository.
 
-**Live demo**: https://passportindia.netlify.app/
+**Live demo**: https://houseofpassports.netlify.app/
