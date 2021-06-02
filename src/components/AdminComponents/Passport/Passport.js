@@ -11,7 +11,6 @@ import { Link } from "react-router-dom";
 import AdminService from "../../../services/AdminService";
 import AdminDashboard from "../../Admin/AdminDashboard";
 import BossCard from "../../BossCard";
-import BossContainer from "../../BossContainer";
 
 export class Passport extends Component {
   adminService = new AdminService();

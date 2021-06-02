@@ -14,15 +14,17 @@ const items = [
   {
     src: imageA,
     altText: "Slide 1",
-
+    caption: "Slide 1",
   },
   {
     src: imageB,
-    altText: "Slide 2"
+    altText: "Slide 2",
+    caption: "Slide 2",
   },
   {
     src: imageC,
-    altText: "Slide 3"
+    altText: "Slide 3",
+    caption: "Slide 3",
   },
 ];
 
@@ -64,16 +66,16 @@ const CustomCarousel = (props) => {
   });
 
   const heading = {
-    color: '#fff',
-    position: 'absolute',
-    left: '150px',
-    top: '200px',
-    fontSize: '2rem',
-    lineSpacing: '10px'
-  }
+    color: "#fff",
+    position: "absolute",
+    left: "150px",
+    top: "200px",
+    fontSize: "2rem",
+    lineSpacing: "10px",
+  };
 
   return (
-    <div style={{boxShadow: "0 2px 2px 0px #fff", zIndex: 9}}>
+    <div style={{ boxShadow: "0 2px 2px 0px #fff", zIndex: 9 }}>
       <Carousel activeIndex={activeIndex} next={next} previous={previous}>
         <CarouselIndicators
           items={items}
@@ -93,7 +95,14 @@ const CustomCarousel = (props) => {
         />
       </Carousel>
       <div style={heading}>
-        <h1 style={{ fontFamily: "Arial", fontWeight: '900', fontSize: '3.5rem', lineHeight: '1.4' }}>
+        <h1
+          style={{
+            fontFamily: "Arial",
+            fontWeight: "900",
+            fontSize: "3.5rem",
+            lineHeight: "1.4",
+          }}
+        >
           WELCOME to
           <br />
           HOUSE OF PASSPORTS

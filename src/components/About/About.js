@@ -22,7 +22,7 @@ function About() {
         >
           ABOUT US
         </h1>
-        <img src={about1} width="100%" height="100%" />
+        <img src={about1} width="100%" height="100%" alt="banner-img" />
       </div>
       <div className="position-relative">
         <div
@@ -64,7 +64,7 @@ function About() {
             respond to it appropriately.
           </p>
         </div>
-        <img src={about2} width="100%" height="100%" />
+        <img src={about2} width="100%" height="100%" alt="about-hop" />
       </div>
       <div className="position-relative">
         <div
@@ -109,7 +109,7 @@ function About() {
             </li>
           </ul>
         </div>
-        <img src={about3} width="100%" height="100%" />
+        <img src={about3} width="100%" height="100%" alt="goals" />
       </div>
     </BossContainer>
   );

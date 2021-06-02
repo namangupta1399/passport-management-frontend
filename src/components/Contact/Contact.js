@@ -1,11 +1,8 @@
 import React, { Component } from "react";
 import BossContainer from "../BossContainer";
-import BossCard from "../BossCard";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import PhoneIphoneIcon from "@material-ui/icons/PhoneIphone";
 import EmailIcon from "@material-ui/icons/Email";
-import background from "../../assets/images/background/bg1.jpg";
-import { Avatar } from "@material-ui/core";
 import aman from "../../assets/images/team/aman.jpeg";
 import gargi from "../../assets/images/team/gargi.png";
 import naman from "../../assets/images/team/naman.png";
@@ -14,10 +11,39 @@ import sid from "../../assets/images/team/siddharth.png";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
 
 class Contact extends Component {
+  team = [
+    {
+      name: "Aman Verma",
+      imageSrc: aman,
+      linkedin: "https://www.linkedin.com/in/amanverma98/",
+    },
+    {
+      name: "Gargi R Pathak",
+      imageSrc: gargi,
+      linkedin: "http://www.linkedin.com/in/gargipathak",
+    },
+    {
+      name: "Naman",
+      imageSrc: naman,
+      linkedin: "https://www.linkedin.com/in/namangupta1399/",
+    },
+    {
+      name: "Simran Malhi",
+      imageSrc: simran,
+      linkedin: "https://www.linkedin.com/in/simran-malhi11/",
+    },
+    {
+      name: "Siddharth Gautam",
+      imageSrc: sid,
+      linkedin: "https://www.linkedin.com/in/siddharth-gautam-160227172/",
+    },
+  ];
+
   render() {
     const styles = {
       itemHeading: {
         fontWeight: "bold",
+        fontSize: "1.2rem",
       },
       itemBlock: {
         backgroundColor: "#987624",
@@ -25,10 +51,6 @@ class Contact extends Component {
         padding: "3rem",
         marginRight: "3rem",
         width: "300px",
-      },
-      itemHeading: {
-        fontSize: "1.2rem",
-        fontWeight: "bold",
       },
       teamIcon: {
         width: "10rem",
@@ -43,7 +65,8 @@ class Contact extends Component {
       iconGrp: {
         display: "flex",
         alignItems: "center",
-        justifyContent: "space-evenly",
+        justifyContent: "center",
+        flexWrap: "wrap",
       },
     };
     const icons = [
@@ -74,10 +97,7 @@ class Contact extends Component {
             >
               {icons.map((icon, i) => {
                 return (
-                  <div
-                    style={styles.itemBlock}
-                    key={i}
-                  >
+                  <div style={styles.itemBlock} key={i}>
                     <div style={styles.itemIcon}>{icon}</div>
                     <div style={styles.itemHeading}>{headings[i]}</div>
                     <p style={styles.itemValue}>{values[i]}</p>
@@ -95,65 +115,21 @@ class Contact extends Component {
               style={styles.teamContainer}
             >
               <div style={styles.iconGrp}>
-                <div>
-                  <img alt="Aman" src={aman} style={styles.teamIcon} />
-                  <h5 className="text-center">Aman Verma</h5>
-                  <LinkedInIcon
-                    className="d-block mx-auto"
-                    style={{ cursor: "pointer" }}
-                    onClick={() =>
-                      (window.location.href =
-                        "https://www.linkedin.com/in/amanverma98/")
-                    }
-                  />
-                </div>
-                <div>
-                  <img alt="Gargi" src={gargi} style={styles.teamIcon} />
-                  <h5 className="text-center">Gargi R Pathak</h5>
-                  <LinkedInIcon
-                    className="d-block mx-auto"
-                    style={{ cursor: "pointer" }}
-                    onClick={() =>
-                      (window.location.href =
-                        "http://www.linkedin.com/in/gargipathak")
-                    }
-                  />
-                </div>
-                <div>
-                  <img alt="Naman" src={naman} style={styles.teamIcon} />
-                  <h5 className="text-center">Naman Gupta</h5>
-                  <LinkedInIcon
-                    className="d-block mx-auto"
-                    style={{ cursor: "pointer" }}
-                    onClick={() =>
-                      (window.location.href =
-                        "https://www.linkedin.com/in/namangupta1399/")
-                    }
-                  />
-                </div>
-              </div>
-              <div style={styles.iconGrp}>
-                <div>
-                  <img alt="Simran" src={simran} style={styles.teamIcon} />
-                  <h5 className="text-center">Simran Malhi</h5>
-                  <LinkedInIcon
-                    className="d-block mx-auto"
-                    style={{ cursor: "pointer" }}
-                    onClick={() =>
-                      (window.location.href =
-                        "https://www.linkedin.com/in/simran-malhi11/")
-                    }
-                  />
-                </div>
-                <div>
-                  <img alt="Sidharth" src={sid} style={styles.teamIcon} />
-                  <h5 className="text-center">Siddharth Gautam</h5>
-                  <LinkedInIcon
-                    className="d-block mx-auto"
-                    style={{ cursor: "pointer" }}
-                    onClick={() => (window.location.href = "https://www.linkedin.com/in/siddharth-gautam-160227172/")}
-                  />
-                </div>
+                {this.team.map((person, index) => (
+                  <div key={index}>
+                    <img
+                      alt={person.name}
+                      src={person.imageSrc}
+                      style={styles.teamIcon}
+                    />
+                    <h5 className="text-center">{person.name}</h5>
+                    <LinkedInIcon
+                      className="d-block mx-auto"
+                      style={{ cursor: "pointer" }}
+                      onClick={() => (window.location.href = person.linkedin)}
+                    />
+                  </div>
+                ))}
               </div>
             </div>
           </div>

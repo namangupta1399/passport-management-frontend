@@ -1,6 +1,5 @@
 import { Button, TextField } from "@material-ui/core";
 import React, { Component } from "react";
-import BossContainer from "../../BossContainer";
 import SendIcon from "@material-ui/icons/Send";
 import ApplicantService from "../../../services/ApplicantService";
 import { withRouter } from "react-router";

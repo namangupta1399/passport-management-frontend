@@ -10,7 +10,6 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import { Radio } from "@material-ui/core";
-import OtherServices from "../../../services/OtherServices";
 
 class PersonalInformation extends Component {
 

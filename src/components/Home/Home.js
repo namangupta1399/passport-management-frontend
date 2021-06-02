@@ -1,62 +1,29 @@
 import React from "react";
-import { UncontrolledCarousel, Row, Col } from "reactstrap";
 import BossContainer from "../BossContainer";
-import {
-  Container,
-  Grid,
-  Button,
-  Typography,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  CardActionArea,
-} from "@material-ui/core";
-import Carousel from "./CustomCarousel";
-import imageA from "../../assets/images/home/imageA.png";
-import imageB from "../../assets/images/home/imageB.png";
-import imageC from "../../assets/images/home/imageC.png";
 import CustomCarousel from "./CustomCarousel";
 import OtherServices from "../../services/OtherServices";
 import { Component } from "react";
 import howFlowChart from "../../assets/images/how.png";
 import newImage from "../../assets/images/new-gif-image-6.gif";
-
-const items = [
-  {
-    src: imageA,
-    header: "",
-    key: "1",
-  },
-  {
-    src: imageB,
-    header: "",
-    key: "2",
-  },
-  {
-    src: imageC,
-    header: "",
-    key: "3",
-  },
-];
+import "./HomeStyle.css";
 
 class NewsStrip extends Component {
   render() {
     const { articles } = this.props;
     return (
       <div
-        className="d-flex align-items-center"
+        className="d-flex align-items-center marquee"
         style={{ background: "#fff", fontWeight: "bold", height: "40px" }}
       >
-        <marquee>
+        <p>
           {articles.length > 0 &&
-            articles.map((article) => (
-              <>
+            articles.map((article, index) => (
+              <span key={index}>
                 <img src={newImage} alt={article.author} width="60" />
                 <span>{article.title}</span>
-              </>
+              </span>
             ))}
-        </marquee>
+        </p>
       </div>
     );
   }
@@ -72,7 +39,6 @@ class Home extends Component {
     this.otherService
       .getNews()
       .then((res) => {
-        console.log(res.data);
         this.setState({ news: [...res.data] });
       })
       .catch((err) => {

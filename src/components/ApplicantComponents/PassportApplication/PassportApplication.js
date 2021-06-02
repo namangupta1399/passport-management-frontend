@@ -3,10 +3,7 @@ import {
   AccordionDetails,
   AccordionSummary,
   Button,
-  Card,
-  Checkbox,
   Paper,
-  Switch,
   Table,
   TableBody,
   TableCell,
@@ -16,12 +13,9 @@ import {
   Typography,
 } from "@material-ui/core";
 import React, { Component } from "react";
-import AdminService from "../../../services/AdminService";
-import BossContainer from "../../BossContainer";
 import CheckCircleOutlineRoundedIcon from "@material-ui/icons/CheckCircleOutlineRounded";
 import CancelRoundedIcon from "@material-ui/icons/CancelRounded";
-import DocumentStatus from "../../../Models/DocumentStatus";
-import { Redirect, withRouter } from "react-router";
+import { withRouter } from "react-router";
 import LoginService from "../../../services/LoginService";
 import ApplicantService from "../../../services/ApplicantService";
 import BossCard from "../../BossCard";

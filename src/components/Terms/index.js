@@ -1,3 +1,3 @@
-import Teams from "./Teams";
+import Terms from "./Terms";
 
-export default Teams;
+export default Terms;

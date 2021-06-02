@@ -11,14 +11,10 @@ import {
   withStyles,
 } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
-import axios from "axios";
 import React, { Component } from "react";
-import User from "../../../Models/User";
 import AdminService from "../../../services/AdminService";
-import ApplicantService from "../../../services/ApplicantService";
 import AdminDashboard from "../../Admin/AdminDashboard";
 import BossCard from "../../BossCard";
-import BossContainer from "../../BossContainer";
 
 const styles = (theme) => ({
   paper: {

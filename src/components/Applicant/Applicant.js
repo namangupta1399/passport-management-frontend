@@ -1,16 +1,8 @@
 import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Container,
-  Grid,
   Typography,
   withStyles,
 } from "@material-ui/core";
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import LoginService from "../../services/LoginService";
 import BossCard from "../BossCard";
 import ApplicantDashboard from "./ApplicantDashboard";
@@ -207,7 +199,6 @@ class Applicant extends Component {
   };
 
   render() {
-    const classes = this.props.classes;
     const user = this.loginService.isLoggedIn();
     const username = user.email.split("@")[0];
 

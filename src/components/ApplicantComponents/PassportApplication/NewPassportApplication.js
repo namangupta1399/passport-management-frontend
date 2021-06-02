@@ -1,7 +1,6 @@
 import {
   Button,
   CssBaseline,
-  Paper,
   Step,
   StepLabel,
   Stepper,
@@ -9,7 +8,6 @@ import {
   withStyles,
 } from "@material-ui/core";
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import ApplicantService from "../../../services/ApplicantService";
 import PersonalInformation from "./PersonalInformation";
 import Address from "./Address";
@@ -17,12 +15,10 @@ import Document from "./Document";
 import DocumentDTO from "../../../Models/DocumentDTO";
 import AddressDTO from "../../../Models/AddressDTO";
 import PassportApplicationDTO from "../../../Models/PassportApplicationDTO";
-import BossContainer from "../../BossContainer";
 import Alert from "@material-ui/lab/Alert";
 import LoginService from "../../../services/LoginService";
 import BossCard from "../../BossCard";
 import ApplicantDashboard from "../../Applicant/ApplicantDashboard";
-import OtherServices from "../../../services/OtherServices";
 
 const styles = (theme) => ({
   appBar: {

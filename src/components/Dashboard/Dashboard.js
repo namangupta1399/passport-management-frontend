@@ -1,11 +1,9 @@
 import {
   Divider,
-  Drawer,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
-  Toolbar,
   withStyles,
 } from "@material-ui/core";
 import React, { Component } from "react";

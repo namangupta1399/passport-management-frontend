@@ -1,9 +1,6 @@
 import React, { Component } from "react";
-import BossContainer from "../../BossContainer";
 import {
   Button,
-  Icon,
-  Paper,
   Table,
   TableBody,
   TableCell,

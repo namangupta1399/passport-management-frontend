@@ -1,7 +1,6 @@
 import {
   Button,
   IconButton,
-  Paper,
   TableBody,
   TableCell,
   TableContainer,
@@ -11,7 +10,6 @@ import {
 import React, { Component } from "react";
 import { Table } from "reactstrap";
 import AdminService from "../../../services/AdminService";
-import BossContainer from "../../BossContainer";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AddIcon from "@material-ui/icons/Add";

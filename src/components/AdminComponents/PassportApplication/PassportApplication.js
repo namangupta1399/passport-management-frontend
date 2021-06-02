@@ -1,7 +1,6 @@
 import {
   Checkbox,
   IconButton,
-  Paper,
   Table,
   TableBody,
   TableCell,
@@ -11,9 +10,6 @@ import {
 } from "@material-ui/core";
 import React, { Component } from "react";
 import AdminService from "../../../services/AdminService";
-import BossContainer from "../../BossContainer";
-import CheckCircleOutlineRoundedIcon from "@material-ui/icons/CheckCircleOutlineRounded";
-import CancelRoundedIcon from "@material-ui/icons/CancelRounded";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import { Link } from "react-router-dom";
 import BossCard from "../../BossCard";
@@ -49,7 +45,7 @@ class PassportApplication extends Component {
         console.log(res.data);
         const apps = [...this.state.applications];
         apps.forEach((app) => {
-          if (app.applicationNo == appNo) {
+          if (app.applicationNo === parseInt(appNo)) {
             app.applicationStatus = appStatus;
           }
         });

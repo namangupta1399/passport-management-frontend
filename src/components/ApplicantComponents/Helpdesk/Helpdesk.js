@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import BossContainer from "../../BossContainer";
 import {
-  Button,
-  Paper,
   Table,
   TableBody,
   TableCell,
@@ -13,7 +10,6 @@ import {
 import ApplicantService from "../../../services/ApplicantService";
 import CheckCircleOutlineRoundedIcon from "@material-ui/icons/CheckCircleOutlineRounded";
 import CancelRoundedIcon from "@material-ui/icons/CancelRounded";
-import { Link } from "react-router-dom";
 import BossCard from "../../BossCard";
 import LoginService from "../../../services/LoginService";
 import ApplicantDashboard from "../../Applicant/ApplicantDashboard";

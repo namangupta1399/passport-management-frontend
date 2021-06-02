@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import BossContainer from "../BossContainer";
-import BossCard from "../BossCard";
 import passportBg from "../../assets/images/passport_bg.png";
 
-class Teams extends Component {
+class Terms extends Component {
   render() {
     return (
       <BossContainer>
@@ -45,11 +44,11 @@ class Teams extends Component {
               with the use of this website.
             </p>
           </div>
-          <img src={passportBg} />
+          <img src={passportBg} alt="background-img" />
         </div>
       </BossContainer>
     );
   }
 }
 
-export default Teams;
+export default Terms;

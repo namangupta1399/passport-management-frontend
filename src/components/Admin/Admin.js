@@ -1,16 +1,8 @@
 import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Container,
-  Grid,
   Typography,
   withStyles,
 } from "@material-ui/core";
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import AdminService from "../../services/AdminService";
 import LoginService from "../../services/LoginService";
 import BossCard from "../BossCard";
@@ -84,8 +76,6 @@ class Admin extends Component {
   };
 
   componentDidMount() {
-    const userId = this.loginService.isLoggedIn().id;
-
     // Get applications
     this.adminService
       .getAllUsers()
@@ -200,7 +190,6 @@ class Admin extends Component {
   };
 
   render() {
-    const classes = this.props.classes;
     const user = this.loginService.isLoggedIn();
     const username = user.email.split("@")[0];
     return (

@@ -1,12 +1,4 @@
 import React from "react";
-import {
-  Box,
-  Container,
-  Row,
-  Column,
-  FooterLink,
-  Heading,
-} from "./FooterStyles";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import InstagramIcon from "@material-ui/icons/Instagram";
@@ -42,17 +34,6 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-          {/* <div>
-            <h3>Helpdesk</h3>
-            <ul className="list-unstyled">
-              <li>
-                <Link>Raise a query</Link>
-              </li>
-              <li>
-                <Link>My queries</Link>
-              </li>
-            </ul>
-          </div> */}
           <div>
             <h3>Contact Us</h3>
             <ul className="list-unstyled">

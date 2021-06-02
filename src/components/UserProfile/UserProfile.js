@@ -10,10 +10,8 @@ import {
 } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import React, { Component } from "react";
-import BossContainer from "../BossContainer";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import LoginService from "../../services/LoginService";
-import User from "../../Models/User";
 import ApplicantService from "../../services/ApplicantService";
 import BossCard from "../BossCard";
 import { withRouter } from "react-router";
